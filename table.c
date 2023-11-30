@@ -1,12 +1,13 @@
 #include "table.h"
 #include <string.h>
+#include <stdio.h>
 
 #define separador "====================================\n"
 
 Tabela criar_tabela() {
     Tabela table;
     printf("Digite o nome da tabela: ");
-    scanf(" %[^\n]", &table.nome);
+    scanf(" %[^\n]", table.nome);
     printf("\nDigite o número de colunas para a tabela: ");
     scanf("%u", &table.num_colunas);
     for (int i = 0; i < table.num_colunas; i++) {
@@ -30,16 +31,10 @@ Tabela criar_tabela() {
     return table;
 }
 
-void listar_tabelas() {
-
-}
-
 void listar_dados(Tabela *table) {
     printf("%s", separador);
     for (int i = 0; i < table->num_colunas; i++) {
-        printf("%s -> %s\n", table->colunas[i].nome, table->colunas[i].tipo);
+        printf("%s\n", table->colunas[i].nome);
     }
     printf("%s", separador);
 }
-
-void apagar_tabela();
