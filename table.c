@@ -9,6 +9,7 @@ Tabela criar_tabela() {
     printf("%s", separador);
     printf("Digite o nome da tabela: ");
     scanf(" %[^\n]", table.nome);
+    //Verificar se o nome da tabela já existe
     printf("Digite o número de colunas para a tabela: ");
     scanf("%u", &table.num_colunas);
     for (int i = 0; i < table.num_colunas; i++) {
@@ -37,6 +38,9 @@ Tabela criar_tabela() {
     checar_nome_PK(&table);
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
+    //Salvar o nome da tabela no arquivo de cabeçalhos
+    //criar o arquivo da tabela
+    //salvar a estrutura da tabela no arquivo da tabela
     return table;
 }
 
