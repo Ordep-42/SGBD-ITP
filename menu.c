@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "menu.h"
+
 void menuinicial(){
+    int acao;
     printf("------------Bem Vindo(a)------------\n");
     printf("----------------MENU----------------\n");
     printf("O que gostaria de fazer?\n");
@@ -22,7 +24,7 @@ void menuinicial(){
     }
     switch (acao) {
         case 1:
-            //função criar lista
+            Tabela teste = criar_tabela();
             break;
         case 2:
             //função listar tabelas

@@ -1,10 +1,6 @@
-#include "table.h"
-
-#define separador "====================================\n"
+#include "menu.h"
 
 int main() {
-    Tabela teste;
-    teste = criar_tabela();
-
+    menuinicial();
     return 0;
 }
