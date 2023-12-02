@@ -44,7 +44,7 @@ Tabela criarTabela() {
 
 void checarNomePK(Tabela* table) {
     //função que checa se o nome da coluna escolhida para ser PK existe
-    if (checarNomeColuna(table->coluna_PK, table)) {
+    if (checarColunaExiste(table->coluna_PK, table)) {
         checarTipoPK(table);
         return;
     }
