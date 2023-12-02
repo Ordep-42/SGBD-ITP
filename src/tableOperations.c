@@ -1,10 +1,8 @@
-#include "../include/table.h"
-#include <string.h>
-#include <stdio.h>
+#include "../include/tableOperations.h"
 
 #define separador "====================================\n"
 
-Tabela criar_tabela() {
+Tabela criarTabela() {
     Tabela table;
     printf("%s", separador);
     printf("Digite o nome da tabela: ");
@@ -44,7 +42,7 @@ Tabela criar_tabela() {
     return table;
 }
 
-void checar_nome_PK(Tabela* table) {
+void checarNomePK(Tabela* table) {
     //função que checa se o nome da coluna escolhida para ser PK existe
     for (int i = 0; i < table->num_colunas; i++) {
         if (strcmp(table->colunas[i].nome, table->coluna_PK) == 0) {
@@ -68,7 +66,7 @@ void checar_nome_PK(Tabela* table) {
     } while(!achou);
 }
 
-void checar_tipo_PK(Tabela* table) {
+void checarTipoPK(Tabela* table) {
     //função que checa se o tipo da coluna escolhida para ser PK é unsigned int
     for (int i = 0; i < table->num_colunas; i++) {
         if (strcmp(table->colunas[i].nome, table->coluna_PK) == 0) {
@@ -85,41 +83,8 @@ void checar_tipo_PK(Tabela* table) {
     }
 }
 
-void listar_dados(Tabela *table) {
-    /* falta melhorar e mostrar os dados mesmo em vez de só mostrar o nome das colunas
-    printf("%s", separador);
-    for (int i = 0; i < table->num_colunas; i++) {
-        printf("%s\n", table->colunas[i].nome);
-    }
-    printf("%s", separador);
-    */
-}
-
-void adicionar_linha(Tabela *table) {
-    /*
-    for (int i = 0; i < table->num_colunas; i++) {
-        printf("Digite o valor da %dª coluna: ", i);
-        switch (table->colunas[i].tipo) {
-            case UNSIGNED_INT:
-                scanf("%u", &table->linhas[table->num_linhas].celulas[i].valor.unsigned_int);
-                break;
-            case INT:
-                scanf("%d", &table->linhas[table->num_linhas].celulas[i].valor.int_);
-                break;
-            case FLOAT:
-                scanf("%f", &table->linhas[table->num_linhas].celulas[i].valor.float_);
-                break;
-            case DOUBLE:
-                scanf("%lf", &table->linhas[table->num_linhas].celulas[i].valor.double_);
-                break;
-            case CHAR:
-                scanf(" %c", &table->linhas[table->num_linhas].celulas[i].valor.char_);
-                break;
-            case STRING:
-                scanf(" %[^\n]", table->linhas[table->num_linhas].celulas[i].valor.string);
-                break;
-        }
-    }
-    table->num_linhas++;
-    */
+void listarTabelas() {
+    //função que lista todas as tabelas existentes
+    //ler o arquivo de cabeçalhos
+    //imprimir os nomes das tabelas
 }

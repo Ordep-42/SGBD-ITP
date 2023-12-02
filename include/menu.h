@@ -1,7 +1,9 @@
 #ifndef MENU_H
 #define MENU_H
-#include "table.h"
 
-void menuinicial();
+#include "tableOperations.h"
+#include "rowOperations.h"
+
+void menuInicial();
 
 #endif
