@@ -1,4 +1,4 @@
-#include "fileOperations.h"
+#include "../include/fileOperations.h"
 
 int salvarEmArquivo(char *nomeArquivo, char *conteudo, char *modo) {
     FILE *arquivo = fopen(nomeArquivo, modo);
