@@ -1,4 +1,4 @@
-#include "table.h"
+#include "../include/table.h"
 #include <string.h>
 #include <stdio.h>
 
