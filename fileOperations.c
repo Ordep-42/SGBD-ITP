@@ -17,15 +17,27 @@ char* lerArquivo(char *nomeArquivo) {
         printf("Erro ao abrir o arquivo %s\n", nomeArquivo);
         return NULL;
     }
-    char *conteudo = (char*) malloc(sizeof(char));
-    char c;
-    int i = 0;
-    while ((c = fgetc(arquivo)) != EOF) {
-        conteudo[i] = c;
-        i++;
-        conteudo = (char*) realloc(conteudo, (i+1)*sizeof(char));
+    char *conteudo = NULL;
+    size_t tamanhoConteudo = 0;
+
+    char *linha = NULL;
+    size_t tamanhoLinha = 0;
+    size_t tamanhoLeitura;
+
+    while ((tamanhoLeitura = getline(&linha, &tamanhoLinha, arquivo)) != -1) {
+        conteudo = realloc(conteudo, tamanhoConteudo + tamanhoLeitura + 1);
+        if (conteudo == NULL) {
+            printf("Erro ao alocar memoria\n");
+            free(linha);
+            fclose(arquivo);
+            return NULL;
+        }
+        strncpy(conteudo + tamanhoConteudo, linha, tamanhoLeitura);
+        tamanhoConteudo += tamanhoLeitura;
     }
-    conteudo[i] = '\0';
+
+    conteudo[tamanhoConteudo] = '\0';
+    free(linha);
     fclose(arquivo);
     return conteudo;
 }
