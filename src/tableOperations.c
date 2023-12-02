@@ -33,7 +33,7 @@ Tabela criarTabela() {
     printf("%s", separador);
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.coluna_PK);
-    checar_nome_PK(&table);
+    checarNomePK(&table);
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
     //Salvar o nome da tabela no arquivo de cabeçalhos
@@ -44,11 +44,9 @@ Tabela criarTabela() {
 
 void checarNomePK(Tabela* table) {
     //função que checa se o nome da coluna escolhida para ser PK existe
-    for (int i = 0; i < table->num_colunas; i++) {
-        if (strcmp(table->colunas[i].nome, table->coluna_PK) == 0) {
-            checar_tipo_PK(table);
-            return;
-        }
+    if (checarNomeColuna(table->coluna_PK, table)) {
+        checarTipoPK(table);
+        return;
     }
     int achou = 0;
     do {
@@ -59,7 +57,7 @@ void checarNomePK(Tabela* table) {
         for (int i = 0; i < table->num_colunas; i++) {
             if (strcmp(table->colunas[i].nome, table->coluna_PK) == 0) {
                 achou = 1;
-                checar_tipo_PK(table);
+                checarTipoPK(table);
                 return;
             }
         } 
@@ -75,12 +73,22 @@ void checarTipoPK(Tabela* table) {
                 printf("A coluna da chave primária deve ser do tipo UNSIGNED_INT.\n");
                 printf("Digite o nome da coluna que contem a chave primária: ");
                 scanf(" %[^\n]", table->coluna_PK);
-                checar_nome_PK(table);
+                checarNomePK(table);
             } else {
                 return;
             }
         }
     }
+}
+
+int checarColunaExiste(char* nome, Tabela* table) {
+    //função que checa se o nome da coluna já existe
+    for (int i = 0; i < table->num_colunas; i++) {
+        if (strcmp(table->colunas[i].nome, nome) == 0) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 void listarTabelas() {

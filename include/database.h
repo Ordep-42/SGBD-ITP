@@ -35,7 +35,7 @@ typedef struct col {
 
 typedef struct table {
     char nome[MAX_NAME_SIZE];
-    Coluna *colunas;
+    Coluna colunas[10];
     char coluna_PK[MAX_NAME_SIZE];
     unsigned int num_colunas;
     Linha *linhas;

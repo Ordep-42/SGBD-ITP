@@ -5,12 +5,14 @@
 #include <string.h>
 
 #include "database.h"
-#include "fileOperations.h"
+//#include "fileOperations.h"
 
 Tabela criarTabela();
-void checarNomePK(Tabela*);
-void checarTipoPK(Tabela*);
+int checarTabelaExiste(char* nome, Tabela* table);
+int checarColunaExiste(char* nome, Tabela* table);
+void checarNomePK(Tabela* table);
+void checarTipoPK(Tabela* table);
 void listarTabelas();
-void apagarTabela(Tabela*);
+void apagarTabela(Tabela* table);
 
 #endif
