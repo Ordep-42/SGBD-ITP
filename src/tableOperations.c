@@ -30,6 +30,19 @@ Tabela criarTabela() {
             else{printf("Erro!, tipo não encontrado\nTente Novamente\n");} //erro adicionado - bee
         }
     }
+    int aux = table.num_colunas;
+    do{
+        if(checarColunaUIntExiste(&table)){
+            break;
+        }
+        else{
+            printf("Erro!,sua tabela deve conter pelo menos uma coluna de inteiro sem sinal\nEscreva uma coluna de tipo UNSIGNED_INT\n");
+            printf("Digite o nome da %dª coluna: ", aux + 1);
+            scanf(" %[^\n]", table.colunas[aux].nome);
+            table.colunas[aux].tipo = UNSIGNED_INT; 
+            table.num_colunas++;
+        }
+    }while(checarColunaUIntExiste(&table) == 0);
     printf("%s", separador);
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.coluna_PK);
@@ -85,6 +98,16 @@ int checarColunaExiste(char* nome, Tabela* table) {
     //função que checa se o nome da coluna já existe
     for (int i = 0; i < table->num_colunas; i++) {
         if (strcmp(table->colunas[i].nome, nome) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int checarColunaUIntExiste(Tabela *table) {
+    //função que checa se existe uma coluna de tipo UNSIGNED_INT
+    for (int p = 0; p < table->num_colunas;p++) {
+        if (table->colunas[p].tipo == UNSIGNED_INT){
             return 1;
         }
     }
