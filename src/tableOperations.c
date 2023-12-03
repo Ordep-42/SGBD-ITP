@@ -30,6 +30,25 @@ Tabela criarTabela() {
             else{printf("Erro!, tipo não encontrado\nTente Novamente\n");} //erro adicionado - bee
         }
     }
+    int existe_colunaUi = 0;
+    int aux = table.num_colunas;
+    do{
+        for (int p = 0; p < table.num_colunas;p++){
+            if (table.colunas[p].tipo == UNSIGNED_INT){
+                existe_colunaUi = 1;
+            }
+        }
+        if(existe_colunaUi == 1){
+            break;
+        }
+        else{
+            printf("Erro!,sua tabela deve conter uma coluna de inteiro sem sinal\nEscreva uma coluna de tipo UNSIGNED_INT\n");
+            printf("Digite o nome da %dª coluna: ", aux + 1);
+            scanf(" %[^\n]", table.colunas[aux].nome);
+            table.colunas[aux].tipo = UNSIGNED_INT; 
+            table.num_colunas++;
+        }
+    }while(existe_colunaUi == 0);
     printf("%s", separador);
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.coluna_PK);
