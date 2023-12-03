@@ -1,7 +1,5 @@
 #include "../include/tableOperations.h"
 
-#define separador "====================================\n"
-
 Tabela criarTabela() {
     Tabela table;
     printf("%s", separador);
@@ -9,8 +7,8 @@ Tabela criarTabela() {
     scanf(" %[^\n]", table.nome);
     //Verificar se o nome da tabela já existe
     printf("Digite o número de colunas para a tabela: ");
-    scanf("%u", &table.num_colunas);
-    for (int i = 0; i < table.num_colunas; i++) {
+    scanf("%u", &table.numColunas);
+    for (int i = 0; i < table.numColunas; i++) {
         printf("%s", separador);
         printf("Digite o nome da %dª coluna: ", i+1);
         scanf(" %[^\n]", table.colunas[i].nome);
@@ -30,7 +28,7 @@ Tabela criarTabela() {
             else{printf("Erro!, tipo não encontrado\nTente Novamente\n");} //erro adicionado - bee
         }
     }
-    int aux = table.num_colunas;
+    int aux = table.numColunas;
     do{
         if(checarColunaUIntExiste(&table)){
             break;
@@ -40,12 +38,12 @@ Tabela criarTabela() {
             printf("Digite o nome da %dª coluna: ", aux + 1);
             scanf(" %[^\n]", table.colunas[aux].nome);
             table.colunas[aux].tipo = UNSIGNED_INT; 
-            table.num_colunas++;
+            table.numColunas++;
         }
     }while(checarColunaUIntExiste(&table) == 0);
     printf("%s", separador);
     printf("Digite o nome da coluna que contem a chave primária: ");
-    scanf(" %[^\n]", table.coluna_PK);
+    scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
@@ -55,67 +53,10 @@ Tabela criarTabela() {
     return table;
 }
 
-void checarNomePK(Tabela* table) {
-    //função que checa se o nome da coluna escolhida para ser PK existe
-    if (checarColunaExiste(table->coluna_PK, table)) {
-        checarTipoPK(table);
-        return;
-    }
-    int achou = 0;
-    do {
-        printf("%s", separador);
-        printf("A coluna escolhida não existe.\n");
-        printf("Digite o nome da coluna que contém a chave primária: ");
-        scanf(" %[^\n]", table->coluna_PK);
-        for (int i = 0; i < table->num_colunas; i++) {
-            if (strcmp(table->colunas[i].nome, table->coluna_PK) == 0) {
-                achou = 1;
-                checarTipoPK(table);
-                return;
-            }
-        } 
-    } while(!achou);
-}
-
-void checarTipoPK(Tabela* table) {
-    //função que checa se o tipo da coluna escolhida para ser PK é unsigned int
-    for (int i = 0; i < table->num_colunas; i++) {
-        if (strcmp(table->colunas[i].nome, table->coluna_PK) == 0) {
-            if (table->colunas[i].tipo != UNSIGNED_INT) {
-                printf("%s", separador);
-                printf("A coluna da chave primária deve ser do tipo UNSIGNED_INT.\n");
-                printf("Digite o nome da coluna que contem a chave primária: ");
-                scanf(" %[^\n]", table->coluna_PK);
-                checarNomePK(table);
-            } else {
-                return;
-            }
-        }
-    }
-}
-
-int checarColunaExiste(char* nome, Tabela* table) {
-    //função que checa se o nome da coluna já existe
-    for (int i = 0; i < table->num_colunas; i++) {
-        if (strcmp(table->colunas[i].nome, nome) == 0) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-int checarColunaUIntExiste(Tabela *table) {
-    //função que checa se existe uma coluna de tipo UNSIGNED_INT
-    for (int p = 0; p < table->num_colunas;p++) {
-        if (table->colunas[p].tipo == UNSIGNED_INT){
-            return 1;
-        }
-    }
-    return 0;
-}
-
 void listarTabelas() {
     //função que lista todas as tabelas existentes
     //ler o arquivo de cabeçalhos
     //imprimir os nomes das tabelas
 }
+
+void apagarTabela(Tabela *table);
