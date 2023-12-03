@@ -4,13 +4,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "database.h"
+#include "tableChecks.h"
 #include "fileOperations.h"
 
 Tabela criarTabela();
-void checarNomePK(Tabela*);
-void checarTipoPK(Tabela*);
 void listarTabelas();
-void apagarTabela(Tabela*);
+void apagarTabela(Tabela *table);
 
 #endif
