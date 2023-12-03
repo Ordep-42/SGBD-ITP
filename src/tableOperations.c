@@ -45,14 +45,48 @@ Tabela criarTabela() {
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
-    printf("%s", separador);
-    printf("Tabela %s adicionada com sucesso!\n", table.nome);
     char header[51];
     strcpy(header, table.nome);
     strcat(header, "\n");
-    salvarEmArquivo("../data/header.txt", header, "a");
-    //criar o arquivo da tabela
-    //salvar a estrutura da tabela no arquivo da tabela
+    salvarEmArquivo("./data/header.txt", header, "a");
+    /*char path[] = "./data/";
+    char ext[] = ".txt";
+    char separator[] = ",";
+    strcat(path, table.nome);
+    strcat(path, ext);
+    char nameBuffer[1024];
+    char typeBuffer[1024];
+    for (int i = 0; i < table.numColunas; i++) {
+        strcat(nameBuffer, table.colunas[i].nome);
+        strcat(nameBuffer, separator);
+        switch (table.colunas[i].tipo)
+        {
+            case UNSIGNED_INT:
+                strcat(typeBuffer, "UNSIGNED_INT");
+                break;
+            case INT:
+                strcat(typeBuffer, "INT");
+                break;
+            case FLOAT:
+                strcat(typeBuffer, "FLOAT");
+                break;
+            case DOUBLE:
+                strcat(typeBuffer, "DOUBLE");
+                break;
+            case CHAR:
+                strcat(typeBuffer, "CHAR");
+                break;
+            case STRING:
+                strcat(typeBuffer, "STRING");
+                break;
+        }
+        strcat(typeBuffer, separator);
+    }
+    strcat(nameBuffer, "\n");
+    salvarEmArquivo(path, nameBuffer, "a");
+    salvarEmArquivo(path, typeBuffer, "a");*/
+    printf("%s", separador);
+    printf("Tabela %s adicionada com sucesso!\n", table.nome);
     return table;
 }
 
