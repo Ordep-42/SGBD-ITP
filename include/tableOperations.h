@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "database.h"
-//#include "fileOperations.h"
+#include "fileOperations.h"
 
 Tabela criarTabela();
 int checarTabelaExiste(char* nome, Tabela* table);
