@@ -1,6 +1,6 @@
 #include "../include/rowOperations.h"
 
-void listarDados(Tabela *table) {
+void listarDados(Tabela* table) {
     /* falta melhorar e mostrar os dados mesmo em vez de só mostrar o nome das colunas
     printf("%s", separador);
     for (int i = 0; i < table->num_colunas; i++) {
@@ -10,7 +10,7 @@ void listarDados(Tabela *table) {
     */
 }
 
-void adicionarLinha(Tabela *table) {
+void adicionarLinha(Tabela* table) {
     /*
     for (int i = 0; i < table->num_colunas; i++) {
         printf("Digite o valor da %dª coluna: ", i);
