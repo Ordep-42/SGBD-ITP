@@ -105,8 +105,9 @@ int checarColunaExiste(char* nome, Tabela* table) {
 }
 
 int checarColunaUIntExiste(Tabela *table) {
-    for (int p = 0; p < table.num_colunas;p++) {
-        if (table.colunas[p].tipo == UNSIGNED_INT){
+    //função que checa se existe uma coluna de tipo UNSIGNED_INT
+    for (int p = 0; p < table->num_colunas;p++) {
+        if (table->colunas[p].tipo == UNSIGNED_INT){
             return 1;
         }
     }
