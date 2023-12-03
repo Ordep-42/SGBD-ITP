@@ -47,26 +47,23 @@ Tabela criarTabela() {
     checarNomePK(&table);
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
-    FILE *arquivoTitulo = fopen("nomestabelas.txt", "at");
-    if (arquivoTitulo != NULL) {
-        fprintf(arquivoTitulo, "%s\n", table.nome);
-        fclose(arquivoTitulo);
-    } else {
-        printf("Nao foi possivel abrir arquivo.\n");
-    }
+    char header[51];
+    strcpy(header, table.nome);
+    strcat(header, "\n");
+    salvarEmArquivo("../data/header.txt", header, "a");
     //criar o arquivo da tabela
     //salvar a estrutura da tabela no arquivo da tabela
     return table;
 }
 
 void listarTabelas() {
-    FILE *arquivoTitulo = fopen("nomestabelas.txt", "rt");
+    FILE *arquivoTitulo = fopen("../data/header.txt", "r");
 
     if (arquivoTitulo != NULL) {
-        char nome_tabela[100];
-        printf("Nomes das tabelas existentes:\n");
-        while (fscanf(arquivoTitulo, " %[^\n]", nome_tabela) == 1) {
-            printf("%s\n", nome_tabela);
+        char nomeTabela[50];
+        printf("%sNomes das tabelas existentes:\n", separador);
+        while (fscanf(arquivoTitulo, " %[^\n]", nomeTabela) == 1) {
+            printf("%s\n", nomeTabela);
         }
         fclose(arquivoTitulo);
     } else {
