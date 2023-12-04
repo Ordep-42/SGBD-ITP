@@ -4,7 +4,8 @@ Tabela criarTabela() {
     Tabela table;
     printf("%s", separador);
     printf("Digite o nome da tabela: ");
-    scanf(" %[^\n]", table.nome);
+    char nomeTabela[MAX_NAME_SIZE];
+    scanf(" %[^\n]", nomeTabela);
     //Verificar se o nome da tabela já existe
     printf("Digite o número de colunas para a tabela: ");
     scanf("%u", &table.numColunas);
@@ -15,7 +16,7 @@ Tabela criarTabela() {
         printf("O tipo da coluna pode ser:\n"); // (escrito embaixo)
         printf("INT, UNSIGNED_INT, FLOAT, DOUBLE, CHAR ou STRING\n"); //adicionei as escolhas - bee
 
-        char tipo[50];
+        char tipo[20];
         while(1){ //enquanto o usuario não digitar algo válido ele vai repetir :P - bee
             printf("Digite o tipo desejado da %dª coluna: ", i+1);
             scanf(" %[^\n]", tipo);
@@ -45,7 +46,7 @@ Tabela criarTabela() {
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
-    char header[51];
+    char header[MAX_NAME_SIZE + 1];
     strcpy(header, table.nome);
     strcat(header, "\n");
     salvarEmArquivo("./data/header.txt", header, "a");
@@ -94,7 +95,7 @@ void listarTabelas() {
     FILE *arquivoTitulo = fopen("./data/header.txt", "r");
 
     if (arquivoTitulo != NULL) {
-        char nomeTabela[50];
+        char nomeTabela[MAX_NAME_SIZE];
         printf("%sNomes das tabelas existentes:\n", separador);
         while (fscanf(arquivoTitulo, " %[^\n]", nomeTabela) == 1) {
             printf("%s\n", nomeTabela);
