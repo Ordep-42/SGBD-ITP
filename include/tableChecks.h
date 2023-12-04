@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int checarTabelaExiste(char *nome, Tabela *table);
+int checarTabelaExiste(char *nome);
 int checarColunaExiste(char *nome, Tabela *table);
 int checarColunaUIntExiste(Tabela *table);
 void checarNomePK(Tabela *table);
