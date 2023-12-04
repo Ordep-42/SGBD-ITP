@@ -41,3 +41,10 @@ char* lerArquivo(char *nomeArquivo) {
     fclose(arquivo);
     return conteudo;
 }
+
+char* gerarCaminhoDeArquivo(char* nome) {
+    char caminho[] = caminhoDados;
+    strcat(caminho, nome);
+    strcat(caminho, extensao);
+    return caminho;
+}
