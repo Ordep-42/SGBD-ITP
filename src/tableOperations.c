@@ -120,7 +120,7 @@ void apagarTabela(Tabela *table){
             break;
         }
         else{
-        printf("Erro! Essa tabela não existe! Tente novamente\n");
+            printf("Erro! Essa tabela não existe! Tente novamente\n");
         }
     }
 }
