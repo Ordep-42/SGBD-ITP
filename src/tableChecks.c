@@ -39,7 +39,7 @@ void checarTipoPK(Tabela *table) {
     }
 }
 
-int checarTabelaExiste(char *nome, Tabela *table) {
+int checarTabelaExiste(char *nome) {
     //função que checa se o nome da tabela já existe
 }
 
