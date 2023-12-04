@@ -40,33 +40,64 @@ Tabela criarTabela() {
             table.colunas[aux].tipo = UNSIGNED_INT; 
             table.numColunas++;
         }
-    }while(checarColunaUIntExiste(&table) == 0);
+    } while(checarColunaUIntExiste(&table) == 0);
     printf("%s", separador);
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
+    char header[51];
+    strcpy(header, table.nome);
+    strcat(header, "\n");
+    salvarEmArquivo("./data/header.txt", header, "a");
+    char path[] = "./data/";
+    char ext[] = ".txt";
+    char separator[] = ",";
+    strcat(path, table.nome);
+    strcat(path, ext);
+    char nameBuffer[1024] = "";
+    char typeBuffer[1024] = "";
+    for (int i = 0; i < table.numColunas; i++) {
+        strcat(nameBuffer, table.colunas[i].nome);
+        strcat(nameBuffer, separator);
+        switch (table.colunas[i].tipo)
+        {
+            case UNSIGNED_INT:
+                strcat(typeBuffer, "UNSIGNED_INT");
+                break;
+            case INT:
+                strcat(typeBuffer, "INT");
+                break;
+            case FLOAT:
+                strcat(typeBuffer, "FLOAT");
+                break;
+            case DOUBLE:
+                strcat(typeBuffer, "DOUBLE");
+                break;
+            case CHAR:
+                strcat(typeBuffer, "CHAR");
+                break;
+            case STRING:
+                strcat(typeBuffer, "STRING");
+                break;
+        }
+        strcat(typeBuffer, separator);
+    }
+    strcat(nameBuffer, "\n");
+    salvarEmArquivo(path, nameBuffer, "a");
+    salvarEmArquivo(path, typeBuffer, "a");
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
-    FILE *arquivoTitulo = fopen("nomestabelas.txt", "at");
-    if (arquivoTitulo != NULL) {
-        fprintf(arquivoTitulo, "%s\n", table.nome);
-        fclose(arquivoTitulo);
-    } else {
-        printf("Nao foi possivel abrir arquivo.\n");
-    }
-    //criar o arquivo da tabela
-    //salvar a estrutura da tabela no arquivo da tabela
     return table;
 }
 
 void listarTabelas() {
-    FILE *arquivoTitulo = fopen("nomestabelas.txt", "rt");
+    FILE *arquivoTitulo = fopen("./data/header.txt", "r");
 
     if (arquivoTitulo != NULL) {
-        char nome_tabela[100];
-        printf("Nomes das tabelas existentes:\n");
-        while (fscanf(arquivoTitulo, " %[^\n]", nome_tabela) == 1) {
-            printf("%s\n", nome_tabela);
+        char nomeTabela[50];
+        printf("%sNomes das tabelas existentes:\n", separador);
+        while (fscanf(arquivoTitulo, " %[^\n]", nomeTabela) == 1) {
+            printf("%s\n", nomeTabela);
         }
         fclose(arquivoTitulo);
     } else {

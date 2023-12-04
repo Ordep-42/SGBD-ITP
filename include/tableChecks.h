@@ -2,6 +2,7 @@
 #define TABLECHECKS_H
 
 #include "database.h"
+#include <stdio.h>
 #include <string.h>
 
 int checarTabelaExiste(char *nome, Tabela *table);
