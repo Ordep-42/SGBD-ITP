@@ -106,4 +106,21 @@ void listarTabelas() {
     }
 }
 
-void apagarTabela(Tabela *table);
+void apagarTabela(Tabela *table){
+    while(1){
+        char tabelaApagar[50];
+        printf("Digite o nome da tabela que deseja apagar:\n");
+        scanf(" %[^\n]", tabelaApagar);
+        if (checarTabelaExiste(tabelaApagar)){
+            char path[] = "./data/";
+            char ext[] = ".txt";
+            strcat(path, tabelaApagar);
+            strcat(path, ext);
+            remove(path);
+            break;
+        }
+        else{
+        printf("Erro! Essa tabela não existe! Tente novamente\n");
+        }
+    }
+}
