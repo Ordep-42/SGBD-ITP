@@ -41,6 +41,17 @@ void checarTipoPK(Tabela *table) {
 
 int checarTabelaExiste(char *nome) {
     //função que checa se o nome da tabela já existe
+    FILE *arquivo = fopen("./data/header.txt", "r");
+    if (arquivo != NULL) {
+        char nomeTabela[MAX_NAME_SIZE];
+        while (fscanf(arquivo, " %[^\n]\n", nomeTabela) != EOF) {
+            if (strcmp(nomeTabela, nome) == 0) {
+                fclose(arquivo);
+                return 1;
+            }
+        }
+        fclose(arquivo);
+    }
 }
 
 int checarColunaExiste(char *nome, Tabela *table) {
