@@ -6,7 +6,12 @@ Tabela criarTabela() {
     printf("Digite o nome da tabela: ");
     char nomeTabela[MAX_NAME_SIZE];
     scanf(" %[^\n]", nomeTabela);
-    //Verificar se o nome da tabela já existe
+    while(checarTabelaExiste(nomeTabela)) {
+        printf("Já existe uma tabela com o nome desejado.\nEscolha outro nome e tente novamente.\n");
+        printf("Digite o nome da tabela: ");
+        scanf(" %[^\n]", nomeTabela);
+    }
+    strcpy(table.nome, nomeTabela);
     printf("Digite o número de colunas para a tabela: ");
     scanf("%u", &table.numColunas);
     for (int i = 0; i < table.numColunas; i++) {
@@ -46,10 +51,13 @@ Tabela criarTabela() {
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
-    char header[MAX_NAME_SIZE + 1];
+    char header[MAX_NAME_SIZE + 2];
     strcpy(header, table.nome);
     strcat(header, "\n");
     salvarEmArquivo("./data/header.txt", header, "a");
+    char caminho[64] = "./data/";
+    strcat(caminho, nomeTabela);
+    strcat(caminho, ".txt");
     char separator[] = ",";
     char nameBuffer[512] = "";
     char typeBuffer[512] = "";
@@ -80,7 +88,6 @@ Tabela criarTabela() {
         strcat(typeBuffer, separator);
     }
     strcat(nameBuffer, "\n");
-    char* caminho = gerarCaminhoDeArquivo(table.nome);
     salvarEmArquivo(caminho, nameBuffer, "a");
     salvarEmArquivo(caminho, typeBuffer, "a");
     printf("%s", separador);
@@ -109,7 +116,9 @@ void apagarTabela(Tabela *table){
         printf("Digite o nome da tabela que deseja apagar:\n");
         scanf(" %[^\n]", tabelaApagar);
         if (checarTabelaExiste(tabelaApagar)){
-            char* caminho = gerarCaminhoDeArquivo(tabelaApagar);
+            char caminho[64] = "./data/";
+            strcat(caminho, tabelaApagar);
+            strcat(caminho, ".txt");
             remove(caminho);
             break;
         }

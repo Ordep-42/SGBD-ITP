@@ -42,9 +42,4 @@ char* lerArquivo(char *nomeArquivo) {
     return conteudo;
 }
 
-char* gerarCaminhoDeArquivo(char* nome) {
-    char caminho[] = caminhoDados;
-    strcat(caminho, nome);
-    strcat(caminho, extensao);
-    return caminho;
-}
+char* gerarCaminhoDeArquivo(char* nome);

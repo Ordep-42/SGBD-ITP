@@ -52,6 +52,7 @@ int checarTabelaExiste(char *nome) {
         }
         fclose(arquivo);
     }
+    return 0;
 }
 
 int checarColunaExiste(char *nome, Tabela *table) {
