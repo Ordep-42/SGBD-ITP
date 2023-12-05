@@ -50,13 +50,9 @@ Tabela criarTabela() {
     strcpy(header, table.nome);
     strcat(header, "\n");
     salvarEmArquivo("./data/header.txt", header, "a");
-    char path[] = "./data/";
-    char ext[] = ".txt";
     char separator[] = ",";
-    strcat(path, table.nome);
-    strcat(path, ext);
-    char nameBuffer[1024] = "";
-    char typeBuffer[1024] = "";
+    char nameBuffer[512] = "";
+    char typeBuffer[512] = "";
     for (int i = 0; i < table.numColunas; i++) {
         strcat(nameBuffer, table.colunas[i].nome);
         strcat(nameBuffer, separator);
@@ -84,8 +80,9 @@ Tabela criarTabela() {
         strcat(typeBuffer, separator);
     }
     strcat(nameBuffer, "\n");
-    salvarEmArquivo(path, nameBuffer, "a");
-    salvarEmArquivo(path, typeBuffer, "a");
+    char* caminho = gerarCaminhoDeArquivo(table.nome);
+    salvarEmArquivo(caminho, nameBuffer, "a");
+    salvarEmArquivo(caminho, typeBuffer, "a");
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
     return table;
@@ -112,11 +109,8 @@ void apagarTabela(Tabela *table){
         printf("Digite o nome da tabela que deseja apagar:\n");
         scanf(" %[^\n]", tabelaApagar);
         if (checarTabelaExiste(tabelaApagar)){
-            char path[] = "./data/";
-            char ext[] = ".txt";
-            strcat(path, tabelaApagar);
-            strcat(path, ext);
-            remove(path);
+            char* caminho = gerarCaminhoDeArquivo(tabelaApagar);
+            remove(caminho);
             break;
         }
         else{
