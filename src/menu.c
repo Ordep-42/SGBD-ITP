@@ -39,7 +39,7 @@ void menuInicial(){
             //função apagar tupla
             break;
         case 6:
-            //função deletar lista
+            //função deletar tabela
             break;
     }
 }
