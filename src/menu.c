@@ -12,6 +12,7 @@ void menuInicial(){
     printf("4 - Pesquisar valor em uma tabela\n");
     printf("5 - Apagar uma tupla de uma tabela\n");
     printf("6 - Deletar uma tabela\n");
+    printf("7 - Sair\n");
     printf("Digite o numero da acao desejada:\n");
     while(1){
         scanf("%d",&acao);
@@ -40,6 +41,9 @@ void menuInicial(){
             break;
         case 6:
             //função deletar tabela
+            break;
+        case 7:
+            return;
             break;
     }
 }
