@@ -52,60 +52,8 @@ Tabela criarTabela() {
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
-
-    //Botar isso aqui em uma função "salvarHeader()" separada - Peppo
-    char header[sizeof(table.nome) + 2];
-    strncpy(header, table.nome, sizeof(table.nome));
-    strcat(header, "\n");
-    salvarEmArquivo("./data/header.txt", header, "a");
-    //Até aqui ^. - Peppo
-
-    //Botar tudo abaixo disso em uma função "salvarMetadados()" separada! - Peppo
-    char *caminho = gerarCaminhoDeArquivo(nomeTabela);
-    char separator[] = ",";
-    char nameBuffer[512] = "";
-    char typeBuffer[512] = "";
-    char pkBuffer[512] = "";
-    for (int i = 0; i < table.numColunas; i++) {
-        strcat(nameBuffer, table.colunas[i].nome);
-        strcat(nameBuffer, separator);
-        switch (table.colunas[i].tipo)
-        {
-            case UNSIGNED_INT:
-                strcat(typeBuffer, "UNSIGNED_INT");
-                break;
-            case INT:
-                strcat(typeBuffer, "INT");
-                break;
-            case FLOAT:
-                strcat(typeBuffer, "FLOAT");
-                break;
-            case DOUBLE:
-                strcat(typeBuffer, "DOUBLE");
-                break;
-            case CHAR:
-                strcat(typeBuffer, "CHAR");
-                break;
-            case STRING:
-                strcat(typeBuffer, "STRING");
-                break;
-        }
-        strcat(typeBuffer, separator);
-        if (strcmp(table.colunas[i].nome, table.colunaPK) == 0) {
-            strcat(pkBuffer, "1");
-        } else {
-            strcat(pkBuffer, "0");
-        }
-        strcat(pkBuffer, separator);
-    }
-    strcat(nameBuffer, "\n");
-    strcat(typeBuffer, "\n");
-    strcat(pkBuffer, "\n");
-    salvarEmArquivo(caminho, nameBuffer, "a");
-    salvarEmArquivo(caminho, typeBuffer, "a");
-    salvarEmArquivo(caminho, pkBuffer, "a");
-    free(caminho);
-    //Até aqui ^. - Peppo
+    salvarNoHeader(nomeTabela);
+    salvarMetadados(&table);
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
     return table;
