@@ -42,4 +42,10 @@ char* lerArquivo(char *nomeArquivo) {
     return conteudo;
 }
 
-char* gerarCaminhoDeArquivo(char* nome);
+char* gerarCaminhoDeArquivo(char* nome) {
+    char *caminho = malloc(sizeof(char) * 64);
+    strcpy(caminho, "./data/");
+    strcat(caminho, nome);
+    strcat(caminho, ".txt");
+    return caminho;
+}

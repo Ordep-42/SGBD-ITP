@@ -11,7 +11,7 @@ Tabela criarTabela() {
         printf("Digite o nome da tabela: ");
         scanf(" %[^\n]", nomeTabela);
     }
-    strcpy(table.nome, nomeTabela);
+    strncpy(table.nome, nomeTabela, sizeof(nomeTabela));
     printf("Digite o número de colunas para a tabela: ");
     scanf("%u", &table.numColunas);
     for (int i = 0; i < table.numColunas; i++) {
@@ -51,13 +51,11 @@ Tabela criarTabela() {
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
-    char header[MAX_NAME_SIZE + 2];
-    strcpy(header, table.nome);
+    char header[sizeof(table.nome) + 2];
+    strncpy(header, table.nome, sizeof(table.nome));
     strcat(header, "\n");
     salvarEmArquivo("./data/header.txt", header, "a");
-    char caminho[64] = "./data/";
-    strcat(caminho, nomeTabela);
-    strcat(caminho, ".txt");
+    char *caminho = gerarCaminhoDeArquivo(nomeTabela);
     char separator[] = ",";
     char nameBuffer[512] = "";
     char typeBuffer[512] = "";
@@ -90,21 +88,20 @@ Tabela criarTabela() {
     strcat(nameBuffer, "\n");
     salvarEmArquivo(caminho, nameBuffer, "a");
     salvarEmArquivo(caminho, typeBuffer, "a");
+    free(caminho);
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
     return table;
 }
 
 void listarTabelas() {
-    FILE *arquivoTitulo = fopen("./data/header.txt", "r");
+    char *header = lerArquivo("./data/header.txt");
 
-    if (arquivoTitulo != NULL) {
+    if (header != NULL) {
         char nomeTabela[MAX_NAME_SIZE];
         printf("%sNomes das tabelas existentes:\n", separador);
-        while (fscanf(arquivoTitulo, " %[^\n]", nomeTabela) == 1) {
-            printf("%s\n", nomeTabela);
-        }
-        fclose(arquivoTitulo);
+        printf("%s", header);
+        free(header);
     } else {
         printf("Nao foi possivel abrir arquivo.\n");
     }
@@ -116,10 +113,9 @@ void apagarTabela(Tabela *table){
         printf("Digite o nome da tabela que deseja apagar:\n");
         scanf(" %[^\n]", tabelaApagar);
         if (checarTabelaExiste(tabelaApagar)){
-            char caminho[64] = "./data/";
-            strcat(caminho, tabelaApagar);
-            strcat(caminho, ".txt");
+            char *caminho = gerarCaminhoDeArquivo(tabelaApagar);
             remove(caminho);
+            free(caminho);
             break;
         }
         else{
