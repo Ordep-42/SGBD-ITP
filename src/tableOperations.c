@@ -21,6 +21,7 @@ Tabela criarTabela() {
         printf("O tipo da coluna pode ser:\n"); // (escrito embaixo)
         printf("INT, UNSIGNED_INT, FLOAT, DOUBLE, CHAR ou STRING\n"); //adicionei as escolhas - bee
 
+        //Pensando em implementar um switch case com numeros aqui (n aguento mais digitar UNSIGNED_INT toda vez q vou fazer um teste, ou tlvz eu crie um script pra isso :thinking:) - Peppo
         char tipo[20];
         while(1){ //enquanto o usuario não digitar algo válido ele vai repetir :P - bee
             printf("Digite o tipo desejado da %dª coluna: ", i+1);
@@ -51,14 +52,20 @@ Tabela criarTabela() {
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
+
+    //Botar isso aqui em uma função "salvarHeader()" separada - Peppo
     char header[sizeof(table.nome) + 2];
     strncpy(header, table.nome, sizeof(table.nome));
     strcat(header, "\n");
     salvarEmArquivo("./data/header.txt", header, "a");
+    //Até aqui ^. - Peppo
+
+    //Botar tudo abaixo disso em uma função "salvarMetadados()" separada! - Peppo
     char *caminho = gerarCaminhoDeArquivo(nomeTabela);
     char separator[] = ",";
     char nameBuffer[512] = "";
     char typeBuffer[512] = "";
+    char pkBuffer[512] = "";
     for (int i = 0; i < table.numColunas; i++) {
         strcat(nameBuffer, table.colunas[i].nome);
         strcat(nameBuffer, separator);
@@ -84,11 +91,21 @@ Tabela criarTabela() {
                 break;
         }
         strcat(typeBuffer, separator);
+        if (strcmp(table.colunas[i].nome, table.colunaPK) == 0) {
+            strcat(pkBuffer, "1");
+        } else {
+            strcat(pkBuffer, "0");
+        }
+        strcat(pkBuffer, separator);
     }
     strcat(nameBuffer, "\n");
+    strcat(typeBuffer, "\n");
+    strcat(pkBuffer, "\n");
     salvarEmArquivo(caminho, nameBuffer, "a");
     salvarEmArquivo(caminho, typeBuffer, "a");
+    salvarEmArquivo(caminho, pkBuffer, "a");
     free(caminho);
+    //Até aqui ^. - Peppo
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
     return table;
