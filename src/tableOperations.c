@@ -116,7 +116,7 @@ void apagarTabela(Tabela *table){
             char ext[] = ".txt";
             strcat(path, tabelaApagar);
             strcat(path, ext);
-            remove(path);
+            remove(path); //falta apagar o nome do arquivo header - bee
             break;
         }
         else{
