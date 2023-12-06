@@ -6,7 +6,12 @@ Tabela criarTabela() {
     printf("Digite o nome da tabela: ");
     char nomeTabela[MAX_NAME_SIZE];
     scanf(" %[^\n]", nomeTabela);
-    //Verificar se o nome da tabela já existe
+    while(checarTabelaExiste(nomeTabela)) {
+        printf("Já existe uma tabela com o nome desejado.\nEscolha outro nome e tente novamente.\n");
+        printf("Digite o nome da tabela: ");
+        scanf(" %[^\n]", nomeTabela);
+    }
+    strncpy(table.nome, nomeTabela, sizeof(nomeTabela));
     printf("Digite o número de colunas para a tabela: ");
     scanf("%u", &table.numColunas);
     for (int i = 0; i < table.numColunas; i++) {
@@ -16,6 +21,7 @@ Tabela criarTabela() {
         printf("O tipo da coluna pode ser:\n"); // (escrito embaixo)
         printf("INT, UNSIGNED_INT, FLOAT, DOUBLE, CHAR ou STRING\n"); //adicionei as escolhas - bee
 
+        //Pensando em implementar um switch case com numeros aqui (n aguento mais digitar UNSIGNED_INT toda vez q vou fazer um teste, ou tlvz eu crie um script pra isso :thinking:) - Peppo
         char tipo[20];
         while(1){ //enquanto o usuario não digitar algo válido ele vai repetir :P - bee
             printf("Digite o tipo desejado da %dª coluna: ", i+1);
@@ -46,61 +52,21 @@ Tabela criarTabela() {
     printf("Digite o nome da coluna que contem a chave primária: ");
     scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
-    char header[MAX_NAME_SIZE + 1];
-    strcpy(header, table.nome);
-    strcat(header, "\n");
-    salvarEmArquivo("./data/header.txt", header, "a");
-    char path[] = "./data/";
-    char ext[] = ".txt";
-    char separator[] = ",";
-    strcat(path, table.nome);
-    strcat(path, ext);
-    char nameBuffer[1024] = "";
-    char typeBuffer[1024] = "";
-    for (int i = 0; i < table.numColunas; i++) {
-        strcat(nameBuffer, table.colunas[i].nome);
-        strcat(nameBuffer, separator);
-        switch (table.colunas[i].tipo)
-        {
-            case UNSIGNED_INT:
-                strcat(typeBuffer, "UNSIGNED_INT");
-                break;
-            case INT:
-                strcat(typeBuffer, "INT");
-                break;
-            case FLOAT:
-                strcat(typeBuffer, "FLOAT");
-                break;
-            case DOUBLE:
-                strcat(typeBuffer, "DOUBLE");
-                break;
-            case CHAR:
-                strcat(typeBuffer, "CHAR");
-                break;
-            case STRING:
-                strcat(typeBuffer, "STRING");
-                break;
-        }
-        strcat(typeBuffer, separator);
-    }
-    strcat(nameBuffer, "\n");
-    salvarEmArquivo(path, nameBuffer, "a");
-    salvarEmArquivo(path, typeBuffer, "a");
+    salvarNoHeader(nomeTabela);
+    salvarMetadados(&table);
     printf("%s", separador);
     printf("Tabela %s adicionada com sucesso!\n", table.nome);
     return table;
 }
 
 void listarTabelas() {
-    FILE *arquivoTitulo = fopen("./data/header.txt", "r");
+    char *header = lerArquivo("./data/header.txt");
 
-    if (arquivoTitulo != NULL) {
+    if (header != NULL) {
         char nomeTabela[MAX_NAME_SIZE];
         printf("%sNomes das tabelas existentes:\n", separador);
-        while (fscanf(arquivoTitulo, " %[^\n]", nomeTabela) == 1) {
-            printf("%s\n", nomeTabela);
-        }
-        fclose(arquivoTitulo);
+        printf("%s", header);
+        free(header);
     } else {
         printf("Nao foi possivel abrir arquivo.\n");
     }
@@ -112,11 +78,9 @@ void apagarTabela(Tabela *table){
         printf("Digite o nome da tabela que deseja apagar:\n");
         scanf(" %[^\n]", tabelaApagar);
         if (checarTabelaExiste(tabelaApagar)){
-            char path[] = "./data/";
-            char ext[] = ".txt";
-            strcat(path, tabelaApagar);
-            strcat(path, ext);
-            remove(path);
+            char *caminho = gerarCaminhoDeArquivo(tabelaApagar);
+            remove(caminho);
+            free(caminho);
             break;
         }
         else{
