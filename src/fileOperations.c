@@ -103,3 +103,21 @@ void salvarMetadados(Tabela* table) {
     salvarEmArquivo(caminho, pkBuffer, "a");
     free(caminho);
 }
+
+void apagarLinhaEmArquivo(char* nomeArquivo, int linha) {
+    char *conteudo = lerArquivo(nomeArquivo);
+    char *linhaApagar = strtok(conteudo, "\n");
+    char *novoConteudo = malloc(sizeof(char) * 512);
+    int i = 0;
+    while (linhaApagar != NULL) {
+        if (i != linha) {
+            strcat(novoConteudo, linhaApagar);
+            strcat(novoConteudo, "\n");
+        }
+        linhaApagar = strtok(NULL, "\n");
+        i++;
+    }    
+    salvarEmArquivo(nomeArquivo, novoConteudo, "w");
+    free(conteudo);
+    free(novoConteudo);
+}
