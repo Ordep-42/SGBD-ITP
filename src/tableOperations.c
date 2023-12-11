@@ -16,8 +16,18 @@ Tabela criarTabela() {
     scanf("%u", &table.numColunas);
     for (int i = 0; i < table.numColunas; i++) {
         printf("%s", separador);
-        printf("Digite o nome da %dª coluna: ", i+1);
-        scanf(" %[^\n]", table.colunas[i].nome);
+        char nomeColunaTemp[MAX_NAME_SIZE];
+        while(1){ //verifica se já existe, mas n testei - bee
+            printf("Digite o nome da %dª coluna: ", i+1);
+            scanf(" %[^\n]", nomeColunaTemp);
+            if (checarColunaExiste(&nomeColunaTemp, &table)){
+                printf("Erro!, nome da coluna ja existe\nTente Novamente\n");
+            }
+            else{
+                strcpy(table.colunas[i].nome,nomeColunaTemp);
+                break;
+            }   
+        }
         printf("O tipo da coluna pode ser:\n"); // (escrito embaixo)
         printf("INT, UNSIGNED_INT, FLOAT, DOUBLE, CHAR ou STRING\n"); //adicionei as escolhas - bee
 
