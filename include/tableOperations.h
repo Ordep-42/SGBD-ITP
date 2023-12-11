@@ -6,6 +6,7 @@
 
 #include "tableChecks.h"
 #include "fileOperations.h"
+#include "dataOperations.h"
 
 Tabela criarTabela();
 void listarTabelas();
