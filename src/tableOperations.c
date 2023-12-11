@@ -72,20 +72,22 @@ void listarTabelas() {
     }
 }
 
-void apagarTabela(Tabela *table){
+void apagarTabela(){
+    char tabelaApagar[MAX_NAME_SIZE];
     while(1){
-        char tabelaApagar[MAX_NAME_SIZE];
+        printf("%s", separador);
         printf("Digite o nome da tabela que deseja apagar:\n");
         scanf(" %[^\n]", tabelaApagar);
         if (checarTabelaExiste(tabelaApagar)){
             char *caminho = gerarCaminhoDeArquivo(tabelaApagar);
             remove(caminho);
             free(caminho);
-            //apagarTabelaDoHeader(tabelaApagar);
+            apagarTabelaDoHeader(tabelaApagar);
             break;
         }
         else{
             printf("Erro! Essa tabela não existe! Tente novamente\n");
         }
     }
+    printf("Tabela %s apagada com sucesso!\n", tabelaApagar);
 }
