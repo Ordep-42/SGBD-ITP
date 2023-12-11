@@ -50,6 +50,34 @@ char* gerarCaminhoDeArquivo(char* nome) {
     return caminho;
 }
 
+void apagarLinhaEmArquivo(char* nomeArquivo, int linha) {
+    char *conteudo = lerArquivo(nomeArquivo);
+    char *linhaApagar = strtok(conteudo, "\n");
+    char *novoConteudo = malloc(sizeof(char) * 512);
+    int i = 0;
+    while (linhaApagar != NULL) {
+        if (i != linha) {
+            strcat(novoConteudo, linhaApagar);
+            strcat(novoConteudo, "\n");
+        }
+        linhaApagar = strtok(NULL, "\n");
+        i++;
+    }    
+    salvarEmArquivo(nomeArquivo, novoConteudo, "w");
+    free(conteudo);
+    free(novoConteudo);
+}
+
+int contarLinhas(char *conteudo) {
+    int linhas = 0;
+    for (int i = 0; i < strlen(conteudo); i++) {
+        if (conteudo[i] == '\n') {
+            linhas++;
+        }
+    }
+    return linhas;
+}
+
 void salvarNoHeader(char* tableNome) {
     char header[sizeof(tableNome) + 2];
     strncpy(header, tableNome, sizeof(tableNome));
