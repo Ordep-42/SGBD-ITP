@@ -12,7 +12,7 @@
 int salvarEmArquivo(char *nomeArquivo, char *conteudo, char *modo);
 char* lerArquivo(char *nomeArquivo);
 char* gerarCaminhoDeArquivo(char* nome);
-void salvarNoHeader(char* tableNome);
-void salvarMetadados(Tabela* table);
+void apagarLinhaEmArquivo(char* nomeArquivo, int linha);
+int contarLinhas(char *conteudo);
 
 #endif

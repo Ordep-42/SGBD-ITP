@@ -74,13 +74,14 @@ void listarTabelas() {
 
 void apagarTabela(Tabela *table){
     while(1){
-        char tabelaApagar[50];
+        char tabelaApagar[MAX_NAME_SIZE];
         printf("Digite o nome da tabela que deseja apagar:\n");
         scanf(" %[^\n]", tabelaApagar);
         if (checarTabelaExiste(tabelaApagar)){
             char *caminho = gerarCaminhoDeArquivo(tabelaApagar);
             remove(caminho);
             free(caminho);
+            //apagarTabelaDoHeader(tabelaApagar);
             break;
         }
         else{
