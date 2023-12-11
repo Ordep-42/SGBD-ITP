@@ -50,19 +50,19 @@ char* gerarCaminhoDeArquivo(char* nome) {
     return caminho;
 }
 
-
-void apagarLinhaEmArquivo(char* nomeArquivo, int linha) {
+void apagarLinhaPorConteudo(char* nomeArquivo, char* conteudoLinha) {
     char *conteudo = lerArquivo(nomeArquivo);
-    char *linhaApagar = strtok(conteudo, "\n");
+    char *linhaAtual = strtok(conteudo, "\n");
     char *novoConteudo = malloc(sizeof(char) * 512);
-    int i = 0;
-    while (linhaApagar != NULL) {
-        if (i != linha) {
-            strcat(novoConteudo, linhaApagar);
+    novoConteudo[0] = '\0'; // Inicializa a string para evitar lixo de memória
+
+    while (linhaAtual != NULL) {
+        // Se a linha não corresponder ao conteudoLinha, adicione ao novoConteudo
+        if (strcmp(linhaAtual, conteudoLinha) != 0) {
+            strcat(novoConteudo, linhaAtual);
             strcat(novoConteudo, "\n");
         }
-        linhaApagar = strtok(NULL, "\n");
-        i++;
+        linhaAtual = strtok(NULL, "\n");
     }    
     salvarEmArquivo(nomeArquivo, novoConteudo, "w");
     free(conteudo);
