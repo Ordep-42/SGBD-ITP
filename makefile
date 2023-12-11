@@ -1,7 +1,7 @@
 PARAMS = -g -W
 
 build: database fileOperations dataOperations tableChecks tableOperations rowOperations 
-	gcc ./src/main.c ./output/database.o ./output/fileOperations.o ./output/dataOperations.o ./output/tableChecks.o ./output/tableOperations.o ./output/rowOperations.o -o ./output/SGBD $(PARAMS)
+	gcc ./src/main.c ./output/database.o ./output/fileOperations.o ./output/dataOperations.o ./output/tableChecks.o ./output/tableOperations.o ./output/rowOperations.o -o SGBD $(PARAMS)
 
 test: database fileOperations tableChecks tableOperations dataOperations
 	gcc ./tests/teste.c ./output/database.o ./output/fileOperations.o ./output/dataOperations.o ./output/tableChecks.o ./output/tableOperations.o -o ./tests/teste $(PARAMS)

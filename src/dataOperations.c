@@ -55,12 +55,5 @@ void salvarMetadados(Tabela* table) {
 }
 
 void apagarTabelaDoHeader(char* nomeTabela) {
-    char* conteudo = lerArquivo("./data/header.txt");
-    int linhas = contarLinhas(conteudo);
-    
-    char tabelas[linhas][MAX_NAME_SIZE];
-    for (int i = 0; i < linhas; i++) {
-        sscanf(conteudo, " %[^\n]\n", tabelas[i]);
-    }
-
+    apagarLinhaPorConteudo("./data/header.txt", nomeTabela);
 }

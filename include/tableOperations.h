@@ -10,6 +10,6 @@
 
 Tabela criarTabela();
 void listarTabelas();
-void apagarTabela(Tabela *table);
+void apagarTabela();
 
 #endif
