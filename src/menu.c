@@ -28,7 +28,7 @@ void menuInicial(){
             Tabela teste = criarTabela();
             break;
         case 2:
-            //função listar tabelas
+            listarTabelas();
             break;
         case 3:
             //função listar dados
@@ -40,7 +40,7 @@ void menuInicial(){
             //função apagar tupla
             break;
         case 6:
-            //função deletar tabela
+            apagarTabela();
             break;
         case 7:
             return;
