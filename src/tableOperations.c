@@ -86,7 +86,7 @@ void apagarTabela(){
             break;
         }
         else{
-        printf("Erro! Essa tabela não existe! Tente novamente\n");
+            printf("Erro! Essa tabela não existe! Tente novamente\n");
         }
     }
     printf("Tabela %s apagada com sucesso!\n", tabelaApagar);
