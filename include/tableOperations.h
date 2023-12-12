@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "tableChecks.h"
+#include "checks.h"
 #include "fileOperations.h"
 #include "dataOperations.h"
 
