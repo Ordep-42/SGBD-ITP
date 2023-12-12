@@ -12,7 +12,7 @@
 int salvarEmArquivo(char *nomeArquivo, char *conteudo, char *modo);
 char* lerArquivo(char *nomeArquivo);
 char* gerarCaminhoDeArquivo(char* nome);
-char **separarString(char *string, const char *delimitador);
+char **separarString(char *string);
 void apagarLinhaPorConteudo(char* nomeArquivo, char* conteudoLinha);
 int contarLinhas(char *conteudo);
 int contarVirgulas(char *conteudo);

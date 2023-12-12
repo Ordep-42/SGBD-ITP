@@ -51,22 +51,25 @@ char* gerarCaminhoDeArquivo(char* nome) {
 }
 
 char** separarString(char *string) {
+    char *stringCopy = strdup(string); // Create a copy of the original string
     char **resultado = NULL;
-    char *token = strtok(string, ",");
+    char *token = strtok(stringCopy, ",");
     int tamanho = 0;
 
     while (token != NULL) {
-        resultado = realloc(resultado, sizeof(char*) * ++tamanho);
+        resultado = realloc(resultado, sizeof(char*) * (tamanho + 1));
         if (resultado == NULL) {
             printf("Erro ao alocar memória\n");
             exit(1);
         }
-        resultado[tamanho - 1] = token;
+        resultado[tamanho] = strdup(token); // Make a copy of the token
+        tamanho++;
         token = strtok(NULL, ",");
     }
 
     resultado = realloc(resultado, sizeof(char*) * (tamanho + 1));
-    resultado[tamanho] = 0;
+    resultado[tamanho] = NULL;
+    free(stringCopy); // Free the copied string
     return resultado;
 }
 
