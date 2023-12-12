@@ -119,14 +119,12 @@ void printarTabela(){
                     if (fgets(buffer, sizeof(buffer), arquivo) != NULL) { //lê a linhaa
                         token = strtok(buffer, ","); //separa na virgula
                         while (token != NULL) {
-                        if (strcmp(token, "\n") != 0){
                             printf("| %15s", token); //printa conteudo
                             token = strtok(NULL, ","); //vai pro próximo
                         }
                     }
-                }
-                printf("\n"); //proxima linha
-                printf("%s", separador);
+                    printf("\n"); //proxima linha
+                    printf("%s", separador);
                 }
             }
             fclose(arquivo);
