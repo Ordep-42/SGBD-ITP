@@ -11,5 +11,6 @@
 Tabela criarTabela();
 void listarTabelas();
 void apagarTabela();
+void printarTabela();
 
 #endif

@@ -111,23 +111,22 @@ void printarTabela(){
         FILE *arquivo = fopen(gerarCaminhoDeArquivo(tabelaPrintar), "r");
         int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(tabelaPrintar)));
         if (checarTabelaExiste(tabelaPrintar)){
-            for(int l = 0; l< linhas; l++){
+            for(int l = 0; l < linhas; l++){
                 char buffer[300];  // Tamanho máximo da linha
                 char *token;
                 if (fgets(buffer, sizeof(buffer), arquivo) != NULL) { //lê a linhaa
                     token = strtok(buffer, ","); //separa na virgula
                     while (token != NULL) {
                     printf("| %s |", token); //printa conteudo
-                    token = strtok(NULL, ","); //vai pro próximo
+                        token = strtok(NULL, ","); //vai pro próximo
                     }
                 }
-                fclose(arquivo);
                 printf("\n"); //proxima linha
                 printf("%s", separador);
-            break;
             }
-        }
-        else{
+        fclose(arquivo);
+        break;
+        } else {
             printf("Erro! Essa tabela não existe! Tente novamente\n");
         }
     }
