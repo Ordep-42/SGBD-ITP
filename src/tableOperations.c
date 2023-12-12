@@ -111,6 +111,7 @@ void printarTabela(){
         FILE *arquivo = fopen(gerarCaminhoDeArquivo(tabelaPrintar), "r");
         int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(tabelaPrintar)));
         if (checarTabelaExiste(tabelaPrintar)){
+            printf("%s", separador);
             for(int l = 0; l < linhas; l++){
                 if (l!=1 && l!=2){
                     char buffer[400];  // Tamanho máximo da linha
@@ -118,8 +119,8 @@ void printarTabela(){
                     if (fgets(buffer, sizeof(buffer), arquivo) != NULL) { //lê a linhaa
                         token = strtok(buffer, ","); //separa na virgula
                         while (token != NULL) {
-                        if (token!='/n'){
-                            printf("| %s |", token); //printa conteudo
+                        if (strcmp(token, "\n") != 0){
+                            printf("| %15s", token); //printa conteudo
                             token = strtok(NULL, ","); //vai pro próximo
                         }
                     }
