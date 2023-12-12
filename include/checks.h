@@ -1,5 +1,5 @@
-#ifndef TABLECHECKS_H
-#define TABLECHECKS_H
+#ifndef CHECKS_H
+#define CHECKS_H
 
 #include "database.h"
 #include <stdio.h>

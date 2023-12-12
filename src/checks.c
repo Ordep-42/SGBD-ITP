@@ -1,4 +1,4 @@
-#include "../include/tableChecks.h"
+#include "../include/checks.h"
 
 void checarNomePK(Tabela *table) {
     //função que checa se o nome da coluna escolhida para ser PK existe
