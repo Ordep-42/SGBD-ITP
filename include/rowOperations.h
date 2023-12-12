@@ -1,9 +1,10 @@
 #ifndef ROWOPERATIONS_H
 #define ROWOPERATIONS_H
 
-#include "database.h"
+#include "dataOperations.h"
+#include "checks.h"
 
-void listarDados(Tabela*);
-void adicionarLinha(Tabela*);
+void adicionarLinha();
+void apagarLinha();
 
 #endif

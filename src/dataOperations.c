@@ -1,10 +1,11 @@
 #include "../include/dataOperations.h"
 
-void salvarNoHeader(char* tableNome) {
-    char header[sizeof(tableNome) + 2];
-    strncpy(header, tableNome, sizeof(tableNome));
+void salvarNoHeader(char* nomeTabela) {
+    char* header = (char*) malloc(sizeof(char) * (MAX_NAME_SIZE + 2));
+    strcpy(header, nomeTabela);
     strcat(header, "\n");
     salvarEmArquivo("./data/header.txt", header, "a");
+    free(header);
 }
 
 void salvarMetadados(Tabela* table) {

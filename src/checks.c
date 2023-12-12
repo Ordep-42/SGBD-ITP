@@ -1,4 +1,4 @@
-#include "../include/tableChecks.h"
+#include "../include/checks.h"
 
 void checarNomePK(Tabela *table) {
     //função que checa se o nome da coluna escolhida para ser PK existe
@@ -72,5 +72,27 @@ int checarColunaUIntExiste(Tabela *table) {
             return 1;
         }
     }
+    return 0;
+}
+
+int checarPKExiste(char *nome, unsigned int valor, unsigned int colunaPK) {
+    //função que checa se a chave primária já existe
+    char *conteudoOriginal = lerArquivo(gerarCaminhoDeArquivo(nome));
+    char *conteudo = strdup(conteudoOriginal);
+    char *linhaAtual = strtok(conteudo, "\n");
+    linhaAtual = strtok(NULL, "\n");
+    linhaAtual = strtok(NULL, "\n");
+    linhaAtual = strtok(NULL, "\n");
+    
+    while (linhaAtual != NULL) {
+        char **valores = separarString(linhaAtual);
+        if (atoi(valores[colunaPK]) == valor) {
+            return 1;
+        }
+        linhaAtual = strtok(NULL, "\n");
+        free(valores); // Free the array of strings
+    }
+    free(conteudo); // Free the copied string
+    free(conteudoOriginal); // Free the original string
     return 0;
 }
