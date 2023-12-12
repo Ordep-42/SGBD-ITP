@@ -1,15 +1,5 @@
 #include "../include/rowOperations.h"
 
-void listarDados(Tabela* table) {
-    /* falta melhorar e mostrar os dados mesmo em vez de só mostrar o nome das colunas
-    printf("%s", separador);
-    for (int i = 0; i < table->num_colunas; i++) {
-        printf("%s\n", table->colunas[i].nome);
-    }
-    printf("%s", separador);
-    */
-}
-
 void adicionarLinha() {
     char* nomeTabela = (char*) malloc(sizeof(char) * MAX_NAME_SIZE);
     printf("%s", separador);

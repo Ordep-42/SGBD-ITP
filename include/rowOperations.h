@@ -4,7 +4,6 @@
 #include "dataOperations.h"
 #include "checks.h"
 
-void listarDados(Tabela*);
 void adicionarLinha();
 void apagarLinha();
 
