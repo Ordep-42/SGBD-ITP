@@ -108,3 +108,7 @@ void adicionarLinha() {
     free(nomeTabela);
 }
 
+void apagarLinha() {
+    // pedir nome da tabela que deseja apagar uma linha
+    // pedir a chave primária da linha que deseja apagar
+}

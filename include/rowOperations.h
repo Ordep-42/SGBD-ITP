@@ -6,5 +6,6 @@
 
 void listarDados(Tabela*);
 void adicionarLinha();
+void apagarLinha();
 
 #endif
