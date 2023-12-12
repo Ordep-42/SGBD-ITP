@@ -4,6 +4,6 @@
 #include "database.h"
 
 void listarDados(Tabela*);
-void adicionarLinha(Tabela*);
+void adicionarLinha();
 
 #endif
