@@ -93,11 +93,42 @@ void apagarTabela(){
             remove(caminho);
             free(caminho);
             apagarTabelaDoHeader(tabelaApagar);
+            printf("Tabela %s apagada com sucesso!\n", tabelaApagar);
             break;
         }
         else{
             printf("Erro! Essa tabela não existe! Tente novamente\n");
         }
     }
-    printf("Tabela %s apagada com sucesso!\n", tabelaApagar);
+}
+
+void printarTabela(){
+    char tabelaPrintar[MAX_NAME_SIZE];
+    while(1){
+        printf("%s", separador);
+        printf("Digite o nome da tabela que deseja vizualizar:\n");
+        scanf(" %[^\n]", tabelaPrintar);
+        FILE *arquivo = fopen(gerarCaminhoDeArquivo(tabelaPrintar), "r");
+        int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(tabelaPrintar)));
+        if (checarTabelaExiste(tabelaPrintar)){
+            for(int l = 0; l< linhas; l++){
+                char buffer[300];  // Tamanho máximo da linha
+                char *token;
+                if (fgets(buffer, sizeof(buffer), arquivo) != NULL) { //lê a linhaa
+                    token = strtok(buffer, ","); //separa na virgula
+                    while (token != NULL) {
+                    printf("| %s |", token); //printa conteudo
+                    token = strtok(NULL, ","); //vai pro próximo
+                    }
+                }
+                fclose(arquivo);
+                printf("\n"); //proxima linha
+                printf("%s", separador);
+            break;
+            }
+        }
+        else{
+            printf("Erro! Essa tabela não existe! Tente novamente\n");
+        }
+    }
 }
