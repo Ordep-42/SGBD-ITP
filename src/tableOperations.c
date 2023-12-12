@@ -124,7 +124,7 @@ void printarTabela(){
                 fclose(arquivo);
                 printf("\n"); //proxima linha
                 printf("%s", separador);
-            break;
+                break;
             }
         }
         else{
