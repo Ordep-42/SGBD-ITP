@@ -1,44 +1,57 @@
 #include "../include/menu.h"
-#include <stdio.h>
 
 void menuInicial() {
     int acao;
-    printf("------------Bem Vindo(a)------------\n");
-    printf("----------------MENU----------------\n");
-    printf("O que gostaria de fazer?\n");
-    printf("1 - Criar uma nova tabela\n");
-    printf("2 - Listar todas as tabelas\n");
-    printf("3 - Listar dados de uma tabela\n");
-    printf("4 - Pesquisar valor em uma tabela\n");
-    printf("5 - Apagar uma tupla de uma tabela\n");
-    printf("6 - Deletar uma tabela\n");
-    printf("Digite o numero da acao desejada:\n");
     while (1) {
-        scanf("%d", &acao);
-        if (acao < 1 || acao > 6) {
-            printf("Erro! O numero digitado nao corresponde a nenhuma funcao\nTente Novamente:");
-        } else {
-            break;
+        printf("%s", separador);
+        printf("------------%sBem Vindo(a)%s------------\n", HBLU, RESET);
+        printf("----------------%sMENU%s----------------\n", HCYN, RESET);
+        printf("O que gostaria de fazer?\n");
+        printf("%s1%s - %sCriar%s uma nova tabela\n", GRNB, RESET, YEL, RESET);
+        printf("%s2%s - %sListar%s todas as tabelas\n", GRNB, RESET, CYN, RESET);
+        printf("%s3%s - %sListar%s dados de uma tabela\n", GRNB, RESET, CYN, RESET);
+        printf("%s4%s - %sAdicionar%s uma tupla em uma tabela\n", GRNB, RESET, GRN, RESET);
+        printf("%s5%s - %sPesquisar%s valor em uma tabela\n", GRNB, RESET, MAG, RESET);
+        printf("%s6%s - %sApagar%s uma tupla de uma tabela\n", GRNB, RESET, RED, RESET);
+        printf("%s7%s - %sDeletar%s uma tabela\n", GRNB, RESET, RED, RESET);
+        printf("%s8%s - %sSair%s\n", GRNB, RESET, BLK, RESET);
+        printf("Digite o %snumero%s da acao desejada: ", GRNB, RESET);
+        while (1) {
+            scanf("%d", &acao);
+            if (acao < 1 || acao > 8) {
+                printf("%sErro! O numero digitado nao corresponde a nenhuma função\nTente Novamente:%s ", RED, RESET);
+            } else {
+                break;
+            }
         }
-    }
-    switch (acao) {
-    case 1:
-        Tabela teste = criarTabela();
-        break;
-    case 2:
-        // função listar tabelas
-        break;
-    case 3:
-        // função listar dados
-        break;
-    case 4:
-        // função pesquisar valor
-        break;
-    case 5:
-        // função apagar tupla
-        break;
-    case 6:
-        // função deletar lista
-        break;
+        switch (acao) {
+        case 1:
+            criarTabela();
+            break;
+        case 2:
+            listarTabelas();
+            break;
+        case 3:
+            listarTabelas();
+            //printarTabela();
+            break;
+        case 4:
+            listarTabelas();
+            adicionarLinha();
+            break;
+        case 5:
+            // função pesquisar valor
+            break;
+        case 6:
+            // função deletar tupla
+            break;
+        case 7:
+            listarTabelas();
+            apagarTabela();
+            break;
+        case 8:
+            printf("Desligando o programa...\n");
+            exit(EXIT_SUCCESS);
+        }
     }
 }

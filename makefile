@@ -1,10 +1,10 @@
 PARAMS = -g -W
 
-build: fileOperations dataOperations checks tableOperations rowOperations 
-	gcc ./src/main.c ./output/fileOperations.o ./output/dataOperations.o ./output/checks.o ./output/tableOperations.o ./output/rowOperations.o -o SGBD $(PARAMS)
+build: fileOperations dataOperations checks tableOperations rowOperations menu
+	gcc ./src/main.c ./output/fileOperations.o ./output/dataOperations.o ./output/checks.o ./output/tableOperations.o ./output/rowOperations.o ./output/menu.o -o SGBD $(PARAMS)
 
-test: fileOperations checks tableOperations dataOperations rowOperations
-	gcc ./tests/teste.c ./output/fileOperations.o ./output/dataOperations.o ./output/checks.o ./output/tableOperations.o ./output/rowOperations.o -o ./tests/teste $(PARAMS)
+test: fileOperations checks tableOperations dataOperations rowOperations menu
+	gcc ./tests/teste.c ./output/fileOperations.o ./output/dataOperations.o ./output/checks.o ./output/tableOperations.o ./output/rowOperations.o ./output/menu.o -o ./tests/teste $(PARAMS)
 
 	
 fileOperations:
@@ -17,6 +17,8 @@ tableOperations:
 	gcc ./src/tableOperations.c -o ./output/tableOperations.o -c $(PARAMS)
 rowOperations:
 	gcc ./src/rowOperations.c -o ./output/rowOperations.o -c $(PARAMS)
+menu:
+	gcc ./src/menu.c -o ./output/menu.o -c $(PARAMS)
 
 clean:
 	rm -f ./output/*.o

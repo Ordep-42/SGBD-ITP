@@ -1,7 +1,7 @@
 #ifndef TABLE_H
 #define TABLE_H
 
-#include "ANSI-CODES.h"
+#include "ANSI-codes.h"
 
 #define MAX_NAME_SIZE 50
 #define separador "====================================\n"
