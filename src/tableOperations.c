@@ -1,5 +1,15 @@
 #include "../include/tableOperations.h"
 
+/**
+ * @brief Cria uma nova tabela.
+ * 
+ * Solicita ao usuário o nome da tabela e o número de colunas desejado.
+ * Em seguida, solicita o nome e o tipo de cada coluna.
+ * Verifica se já existe uma tabela com o mesmo nome e se a tabela possui pelo menos uma coluna do tipo UNSIGNED_INT.
+ * Por fim, salva o nome da tabela no cabeçalho e os metadados da tabela em um arquivo.
+ * 
+ * @return A tabela criada.
+ */
 Tabela criarTabela() {
     Tabela table;
     printf("%s", separador);
@@ -73,6 +83,12 @@ Tabela criarTabela() {
     return table;
 }
 
+/**
+ * @brief Função responsável por listar as tabelas existentes.
+ * 
+ * A função lê o conteúdo do arquivo "header.txt" e exibe os nomes das tabelas existentes.
+ * Caso o arquivo não possa ser aberto, uma mensagem de erro é exibida.
+ */
 void listarTabelas() {
     char *header = lerArquivo("./data/header.txt");
 
@@ -85,6 +101,15 @@ void listarTabelas() {
     }
 }
 
+/**
+ * @brief Função responsável por apagar uma tabela.
+ * 
+ * A função solicita ao usuário o nome da tabela que deseja apagar.
+ * Em seguida, verifica se a tabela existe.
+ * Se a tabela existir, o arquivo correspondente é removido do sistema de arquivos.
+ * Além disso, a tabela também é removida do cabeçalho.
+ * 
+ */
 void apagarTabela() {
     char tabelaApagar[MAX_NAME_SIZE];
     while (1) {
