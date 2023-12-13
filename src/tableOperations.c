@@ -139,6 +139,15 @@ void apagarTabela() {
     }
 }
 
+/**
+ * @brief Função responsável por imprimir uma tabela.
+ * Solicita ao usuário o nome da tabela que deseja visualizar.
+ * Verifica se a tabela existe e, em caso afirmativo, imprime seu conteúdo.
+ * Apenas a primeira linha é impressa completamente, as demais linhas são truncadas para caberem na tela.
+ * 
+ * @param void
+ * @return void
+ */
 void printarTabela() {
     char tabelaPrintar[MAX_NAME_SIZE];
     while (1) {
