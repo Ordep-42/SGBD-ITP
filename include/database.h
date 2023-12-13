@@ -1,8 +1,9 @@
 #ifndef TABLE_H
 #define TABLE_H
 
-#define MAX_NAME_SIZE 50
+#include "ANSI-CODES.h"
 
+#define MAX_NAME_SIZE 50
 #define separador "====================================\n"
 
 typedef struct cell {
