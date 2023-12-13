@@ -76,23 +76,29 @@ int checarColunaUIntExiste(Tabela *table) {
 }
 
 int checarPKExiste(char *nome, unsigned int valor, unsigned int colunaPK) {
-    //função que checa se a chave primária já existe
-    char *conteudoOriginal = lerArquivo(gerarCaminhoDeArquivo(nome));
-    char *conteudo = strdup(conteudoOriginal);
-    char *linhaAtual = strtok(conteudo, "\n");
-    linhaAtual = strtok(NULL, "\n");
-    linhaAtual = strtok(NULL, "\n");
-    linhaAtual = strtok(NULL, "\n");
-    
-    while (linhaAtual != NULL) {
-        char **valores = separarString(linhaAtual);
-        if (atoi(valores[colunaPK]) == valor) {
-            return 1;
-        }
-        linhaAtual = strtok(NULL, "\n");
-        free(valores); // Free the array of strings
+    char* caminho = gerarCaminhoDeArquivo(nome); // Assume que o nome do arquivo é o nome da tabela com a extensão .txt
+
+    FILE *arquivo = fopen(caminho, "r");
+    if (arquivo == NULL) {
+        printf("Não foi possível abrir o arquivo %s\n", caminho);
+        return -1; // Retorna -1 se o arquivo não puder ser aberto
     }
-    free(conteudo); // Free the copied string
-    free(conteudoOriginal); // Free the original string
-    return 0;
+
+    char* linha = malloc(sizeof(char) * MAX_NAME_SIZE * 10);
+    while (fgets(linha, sizeof(linha), arquivo)) {
+        char *coluna = strtok(linha, ","); // Assume que as colunas são separadas por vírgulas
+        for (unsigned int i = 0; i < colunaPK; i++) {
+            coluna = strtok(NULL, ",");
+            if (coluna == NULL) {
+                break;
+            }
+        }
+        if (coluna != NULL && atoi(coluna) == valor) {
+            fclose(arquivo);
+            return 1; // Retorna 1 se a chave primária existir
+        }
+    }
+    free(linha);
+    fclose(arquivo);
+    return 0; // Retorna 0 se a chave primária não existir
 }
