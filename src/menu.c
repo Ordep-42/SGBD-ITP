@@ -1,5 +1,8 @@
 #include "../include/menu.h"
 
+/**
+ * @brief Função responsável por exibir o menu inicial do programa e realizar as ações selecionadas pelo usuário.
+ */
 void menuInicial() {
     int acao;
     while (1) {
