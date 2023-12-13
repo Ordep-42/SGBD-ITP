@@ -116,7 +116,7 @@ void printarTabela() {
             if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
                 char *token = strtok(buffer, ",");
                 while (token != NULL) {
-                    printf("| %15s", token);
+                    printf("| %12s", token);
                     token = strtok(NULL, ",");
                 }
                 printf("\n");
@@ -130,7 +130,7 @@ void printarTabela() {
                 if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
                     char *token = strtok(buffer, ",");
                     while (token != NULL) {
-                        printf("| %15s", token);
+                        printf("| %12s", token);
                         token = strtok(NULL, ",");
                     }
                     printf("\n");
