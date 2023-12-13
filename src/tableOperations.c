@@ -119,7 +119,6 @@ void printarTabela() {
                     printf("| %12s", token);
                     token = strtok(NULL, ",");
                 }
-                printf("\n");
                 printf("%s", separador);
             }
             // Pular a 2 e 3
@@ -133,7 +132,6 @@ void printarTabela() {
                         printf("| %12s", token);
                         token = strtok(NULL, ",");
                     }
-                    printf("\n");
                     printf("%s", separador);
                 }
             }

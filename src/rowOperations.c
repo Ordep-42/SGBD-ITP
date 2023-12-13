@@ -47,6 +47,7 @@ void adicionarLinha() {
     novaLinha[0] = '\0';
 
     int debug = 0;
+    unsigned int PK;
     for (unsigned int i = 0; i < numColunas; i++) {
         printf("%s", separador);
         printf("Digite o valor da coluna %s de tipo %s: ", nomes[i], tipos[i]);
@@ -63,6 +64,7 @@ void adicionarLinha() {
                     }
                 }
             }
+            PK = valor;
             sprintf(novoValor, "%u", valor);
         } else if (strcmp(tipos[i], "INT") == 0) {
             int valor;
@@ -93,6 +95,8 @@ void adicionarLinha() {
     free(novoValor);
     strcat(novaLinha, "\n");
     salvarEmArquivo(caminhoTabela, novaLinha, "a");
+    printf("%s", separador);
+    printf("Linha %u adicionada na tabela %s com sucesso!\n", PK, nomeTabela);
     free(novaLinha);
     free(caminhoTabela);
     free(nomeTabela);
