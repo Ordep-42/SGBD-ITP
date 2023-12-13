@@ -1,7 +1,7 @@
-#include <stdio.h>
 #include "../include/menu.h"
+#include <stdio.h>
 
-void menuInicial(){
+void menuInicial() {
     int acao;
     printf("------------Bem Vindo(a)------------\n");
     printf("----------------MENU----------------\n");
@@ -13,33 +13,32 @@ void menuInicial(){
     printf("5 - Apagar uma tupla de uma tabela\n");
     printf("6 - Deletar uma tabela\n");
     printf("Digite o numero da acao desejada:\n");
-    while(1){
-        scanf("%d",&acao);
-        if (acao<1 || acao>6){
+    while (1) {
+        scanf("%d", &acao);
+        if (acao < 1 || acao > 6) {
             printf("Erro! O numero digitado nao corresponde a nenhuma funcao\nTente Novamente:");
-        }
-        else{
+        } else {
             break;
         }
     }
     switch (acao) {
-        case 1:
-            Tabela teste = criarTabela();
-            break;
-        case 2:
-            //função listar tabelas
-            break;
-        case 3:
-            //função listar dados
-            break;
-        case 4:
-            //função pesquisar valor
-            break;
-        case 5:
-            //função apagar tupla
-            break;
-        case 6:
-            //função deletar lista
-            break;
+    case 1:
+        Tabela teste = criarTabela();
+        break;
+    case 2:
+        // função listar tabelas
+        break;
+    case 3:
+        // função listar dados
+        break;
+    case 4:
+        // função pesquisar valor
+        break;
+    case 5:
+        // função apagar tupla
+        break;
+    case 6:
+        // função deletar lista
+        break;
     }
 }

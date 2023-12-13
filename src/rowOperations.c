@@ -1,49 +1,49 @@
 #include "../include/rowOperations.h"
 
 void adicionarLinha() {
-    char* nomeTabela = (char*) malloc(sizeof(char) * MAX_NAME_SIZE);
+    char *nomeTabela = (char *)malloc(sizeof(char) * MAX_NAME_SIZE);
     printf("%s", separador);
     printf("Digite o nome da tabela que deseja adicionar uma linha: ");
     scanf(" %[^\n]", nomeTabela);
-    while(!checarTabelaExiste(nomeTabela)) {
+    while (!checarTabelaExiste(nomeTabela)) {
         printf("Tabela não existe. Digite novamente: ");
         scanf(" %[^\n]", nomeTabela);
     }
-    char* caminhoTabela = gerarCaminhoDeArquivo(nomeTabela);
-    char* conteudoTabela = lerArquivo(caminhoTabela);
-    char* linhaAtual = strtok(conteudoTabela, "\n");
+    char *caminhoTabela = gerarCaminhoDeArquivo(nomeTabela);
+    char *conteudoTabela = lerArquivo(caminhoTabela);
+    char *linhaAtual = strtok(conteudoTabela, "\n");
     int numColunas = contarVirgulas(linhaAtual);
 
-    char* linhaNomes = (char*) malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
-    char* linhaTipos = (char*) malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
-    char* linhaPK = (char*) malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
+    char *linhaNomes = (char *)malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
+    char *linhaTipos = (char *)malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
+    char *linhaPK = (char *)malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
 
     for (int i = 0; i < 3; i++) {
         switch (i) {
-            case 0:
-                strcpy(linhaNomes, linhaAtual);
-                break;
-            case 1:
-                strcpy(linhaTipos, linhaAtual);
-                break;
-            case 2:
-                strcpy(linhaPK, linhaAtual);
-                break;
+        case 0:
+            strcpy(linhaNomes, linhaAtual);
+            break;
+        case 1:
+            strcpy(linhaTipos, linhaAtual);
+            break;
+        case 2:
+            strcpy(linhaPK, linhaAtual);
+            break;
         }
         linhaAtual = strtok(NULL, "\n");
     }
-    
+
     free(conteudoTabela);
-    char** nomes = separarString(linhaNomes);
-    char** tipos = separarString(linhaTipos);
-    char** pks = separarString(linhaPK);
+    char **nomes = separarString(linhaNomes);
+    char **tipos = separarString(linhaTipos);
+    char **pks = separarString(linhaPK);
     free(linhaNomes);
     free(linhaTipos);
     free(linhaPK);
-    
-    char *novoValor = (char*) malloc(sizeof(char) * MAX_NAME_SIZE);
+
+    char *novoValor = (char *)malloc(sizeof(char) * MAX_NAME_SIZE);
     novoValor[0] = '\0';
-    char *novaLinha = (char*) malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
+    char *novaLinha = (char *)malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
     novaLinha[0] = '\0';
 
     int debug = 0;
@@ -54,7 +54,7 @@ void adicionarLinha() {
             unsigned int valor;
             scanf("%u", &valor);
             if (strcmp(pks[i], "1") == 0) {
-                while(1) {
+                while (1) {
                     if (checarPKExiste(nomeTabela, valor, i)) {
                         printf("Erro! Essa chave primária já existe! Tente novamente\n");
                         scanf("%u", &valor);
@@ -85,7 +85,6 @@ void adicionarLinha() {
         strcat(novaLinha, novoValor);
         strcat(novaLinha, ",");
     }
-
 
     free(nomes);
     free(tipos);

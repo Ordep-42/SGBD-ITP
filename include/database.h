@@ -44,6 +44,4 @@ typedef struct table {
     unsigned int numLinhas;
 } Tabela;
 
-int initDatabase();
-
 #endif

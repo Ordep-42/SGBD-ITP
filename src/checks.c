@@ -1,7 +1,7 @@
 #include "../include/checks.h"
 
 void checarNomePK(Tabela *table) {
-    //função que checa se o nome da coluna escolhida para ser PK existe
+    // função que checa se o nome da coluna escolhida para ser PK existe
     if (checarColunaExiste(table->colunaPK, table)) {
         checarTipoPK(table);
         return;
@@ -18,12 +18,12 @@ void checarNomePK(Tabela *table) {
                 checarTipoPK(table);
                 return;
             }
-        } 
-    } while(!achou);
+        }
+    } while (!achou);
 }
 
 void checarTipoPK(Tabela *table) {
-    //função que checa se o tipo da coluna escolhida para ser PK é unsigned int
+    // função que checa se o tipo da coluna escolhida para ser PK é unsigned int
     for (int i = 0; i < table->numColunas; i++) {
         if (strcmp(table->colunas[i].nome, table->colunaPK) == 0) {
             if (table->colunas[i].tipo != UNSIGNED_INT) {
@@ -40,7 +40,7 @@ void checarTipoPK(Tabela *table) {
 }
 
 int checarTabelaExiste(char *nome) {
-    //função que checa se o nome da tabela já existe
+    // função que checa se o nome da tabela já existe
     FILE *arquivo = fopen("./data/header.txt", "r");
     if (arquivo != NULL) {
         char nomeTabela[MAX_NAME_SIZE];
@@ -56,7 +56,7 @@ int checarTabelaExiste(char *nome) {
 }
 
 int checarColunaExiste(char *nome, Tabela *table) {
-    //função que checa se o nome da coluna já existe
+    // função que checa se o nome da coluna já existe
     for (int i = 0; i < table->numColunas; i++) {
         if (strcmp(table->colunas[i].nome, nome) == 0) {
             return 1;
@@ -66,9 +66,9 @@ int checarColunaExiste(char *nome, Tabela *table) {
 }
 
 int checarColunaUIntExiste(Tabela *table) {
-    //função que checa se existe uma coluna de tipo UNSIGNED_INT
-    for (int p = 0; p < table->numColunas;p++) {
-        if (table->colunas[p].tipo == UNSIGNED_INT){
+    // função que checa se existe uma coluna de tipo UNSIGNED_INT
+    for (int p = 0; p < table->numColunas; p++) {
+        if (table->colunas[p].tipo == UNSIGNED_INT) {
             return 1;
         }
     }
@@ -76,7 +76,7 @@ int checarColunaUIntExiste(Tabela *table) {
 }
 
 int checarPKExiste(char *nome, unsigned int valor, unsigned int colunaPK) {
-    char* caminho = gerarCaminhoDeArquivo(nome); // Assume que o nome do arquivo é o nome da tabela com a extensão .txt
+    char *caminho = gerarCaminhoDeArquivo(nome); // Assume que o nome do arquivo é o nome da tabela com a extensão .txt
 
     FILE *arquivo = fopen(caminho, "r");
     if (arquivo == NULL) {
@@ -84,7 +84,7 @@ int checarPKExiste(char *nome, unsigned int valor, unsigned int colunaPK) {
         return -1; // Retorna -1 se o arquivo não puder ser aberto
     }
 
-    char* linha = malloc(sizeof(char) * MAX_NAME_SIZE * 10);
+    char *linha = malloc(sizeof(char) * MAX_NAME_SIZE * 10);
     while (fgets(linha, sizeof(linha), arquivo)) {
         char *coluna = strtok(linha, ","); // Assume que as colunas são separadas por vírgulas
         for (unsigned int i = 0; i < colunaPK; i++) {

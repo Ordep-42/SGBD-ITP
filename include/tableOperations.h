@@ -5,8 +5,8 @@
 #include <string.h>
 
 #include "checks.h"
-#include "fileOperations.h"
 #include "dataOperations.h"
+#include "fileOperations.h"
 
 Tabela criarTabela();
 void listarTabelas();

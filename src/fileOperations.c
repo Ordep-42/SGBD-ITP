@@ -11,7 +11,7 @@ int salvarEmArquivo(char *nomeArquivo, char *conteudo, char *modo) {
     return 1;
 }
 
-char* lerArquivo(char *nomeArquivo) {
+char *lerArquivo(char *nomeArquivo) {
     FILE *arquivo = fopen(nomeArquivo, "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo %s\n", nomeArquivo);
@@ -42,7 +42,7 @@ char* lerArquivo(char *nomeArquivo) {
     return conteudo;
 }
 
-char* gerarCaminhoDeArquivo(char* nome) {
+char *gerarCaminhoDeArquivo(char *nome) {
     char *caminho = malloc(sizeof(char) * 64);
     strcpy(caminho, "./data/");
     strcat(caminho, nome);
@@ -50,14 +50,14 @@ char* gerarCaminhoDeArquivo(char* nome) {
     return caminho;
 }
 
-char** separarString(char *string) {
+char **separarString(char *string) {
     char *stringCopy = strdup(string); // Create a copy of the original string
     char **resultado = NULL;
     char *token = strtok(stringCopy, ",");
     int tamanho = 0;
 
     while (token != NULL) {
-        resultado = realloc(resultado, sizeof(char*) * (tamanho + 1));
+        resultado = realloc(resultado, sizeof(char *) * (tamanho + 1));
         if (resultado == NULL) {
             printf("Erro ao alocar memória\n");
             exit(1);
@@ -67,13 +67,13 @@ char** separarString(char *string) {
         token = strtok(NULL, ",");
     }
 
-    resultado = realloc(resultado, sizeof(char*) * (tamanho + 1));
+    resultado = realloc(resultado, sizeof(char *) * (tamanho + 1));
     resultado[tamanho] = NULL;
     free(stringCopy); // Free the copied string
     return resultado;
 }
 
-void apagarLinhaPorConteudo(char* nomeArquivo, char* conteudoLinha) {
+void apagarLinhaPorConteudo(char *nomeArquivo, char *conteudoLinha) {
     char *conteudo = lerArquivo(nomeArquivo);
     char *linhaAtual = strtok(conteudo, "\n");
     char *novoConteudo = malloc(sizeof(char) * 512);
@@ -86,7 +86,7 @@ void apagarLinhaPorConteudo(char* nomeArquivo, char* conteudoLinha) {
             strcat(novoConteudo, "\n");
         }
         linhaAtual = strtok(NULL, "\n");
-    }    
+    }
     salvarEmArquivo(nomeArquivo, novoConteudo, "w");
     free(conteudo);
     free(novoConteudo);
