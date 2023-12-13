@@ -1,13 +1,12 @@
 PARAMS = -g -W
 
-build: database fileOperations dataOperations checks tableOperations rowOperations 
-	gcc ./src/main.c ./output/database.o ./output/fileOperations.o ./output/dataOperations.o ./output/checks.o ./output/tableOperations.o ./output/rowOperations.o -o SGBD $(PARAMS)
+build: fileOperations dataOperations checks tableOperations rowOperations 
+	gcc ./src/main.c ./output/fileOperations.o ./output/dataOperations.o ./output/checks.o ./output/tableOperations.o ./output/rowOperations.o -o SGBD $(PARAMS)
 
-test: database fileOperations checks tableOperations dataOperations rowOperations
-	gcc ./tests/teste.c ./output/database.o ./output/fileOperations.o ./output/dataOperations.o ./output/checks.o ./output/tableOperations.o ./output/rowOperations.o -o ./tests/teste $(PARAMS)
+test: fileOperations checks tableOperations dataOperations rowOperations
+	gcc ./tests/teste.c ./output/fileOperations.o ./output/dataOperations.o ./output/checks.o ./output/tableOperations.o ./output/rowOperations.o -o ./tests/teste $(PARAMS)
 
-database:  
-	gcc ./src/database.c -o ./output/database.o -c $(PARAMS)
+	
 fileOperations:
 	gcc ./src/fileOperations.c -o ./output/fileOperations.o -c $(PARAMS)
 dataOperations:
