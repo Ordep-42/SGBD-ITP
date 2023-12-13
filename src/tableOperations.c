@@ -101,35 +101,45 @@ void apagarTabela(){
     }
 }
 
-void printarTabela(){
+void printarTabela() {
     char tabelaPrintar[MAX_NAME_SIZE];
-    while(1){
+    while (1) {
         printf("%s", separador);
-        printf("Digite o nome da tabela que deseja vizualizar:\n");
+        printf("Digite o nome da tabela que deseja visualizar:\n");
         scanf(" %[^\n]", tabelaPrintar);
         FILE *arquivo = fopen(gerarCaminhoDeArquivo(tabelaPrintar), "r");
         int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(tabelaPrintar)));
-        if (checarTabelaExiste(tabelaPrintar)){
+        if (checarTabelaExiste(tabelaPrintar)) {
             printf("%s", separador);
-            for(int l = 0; l < linhas; l++){
-                if (l!=1 && l!=2){
-                    char buffer[400];  // Tamanho máximo da linha
-                    char *token;
-                    if (fgets(buffer, sizeof(buffer), arquivo) != NULL) { //lê a linhaa
-                        token = strtok(buffer, ","); //separa na virgula
-                        while (token != NULL) {
-                            printf("| %15s", token); //printa conteudo
-                            token = strtok(NULL, ","); //vai pro próximo
-                        }
+            // Lê e imprime apenas a primeira linha
+            char buffer[400];  // Tamanho máximo da linha
+            if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
+                char *token = strtok(buffer, ",");
+                while (token != NULL) {
+                    printf("| %15s", token);
+                    token = strtok(NULL, ",");
+                }
+                printf("\n");
+                printf("%s", separador);
+            }
+            // Pular a 2 e 3
+            fgets(buffer, sizeof(buffer), arquivo);  // Lê a 2
+            fgets(buffer, sizeof(buffer), arquivo);  // Lê a 3
+            // Imprime o resto
+            for (int l = 3; l < linhas; l++) {
+                if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
+                    char *token = strtok(buffer, ",");
+                    while (token != NULL) {
+                        printf("| %15s", token);
+                        token = strtok(NULL, ",");
                     }
-                    printf("\n"); //proxima linha
+                    printf("\n");
                     printf("%s", separador);
                 }
             }
             fclose(arquivo);
             break;
-        } 
-        else {
+        } else {
             printf("Erro! Essa tabela não existe! Tente novamente\n");
         }
     }
