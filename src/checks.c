@@ -1,7 +1,13 @@
 #include "../include/checks.h"
 
+/**
+ * @brief Função que verifica se o nome da coluna escolhida para ser chave primária existe na tabela.
+ * Se a coluna existir, chama a função checarTipoPK para verificar o tipo da chave primária.
+ * Caso contrário, solicita ao usuário que digite o nome da coluna que contém a chave primária até que uma coluna válida seja informada.
+ * 
+ * @param table Ponteiro para a estrutura Tabela que contém as informações da tabela.
+ */
 void checarNomePK(Tabela *table) {
-    // função que checa se o nome da coluna escolhida para ser PK existe
     if (checarColunaExiste(table->colunaPK, table)) {
         checarTipoPK(table);
         return;
@@ -22,14 +28,19 @@ void checarNomePK(Tabela *table) {
     } while (!achou);
 }
 
+
+/**
+ * @brief Função que verifica se o tipo da coluna escolhida para ser chave primária (PK) é unsigned int.
+ * 
+ * @param table Ponteiro para a estrutura Tabela que contém as informações da tabela.
+ */
 void checarTipoPK(Tabela *table) {
-    // função que checa se o tipo da coluna escolhida para ser PK é unsigned int
     for (int i = 0; i < table->numColunas; i++) {
         if (strcmp(table->colunas[i].nome, table->colunaPK) == 0) {
             if (table->colunas[i].tipo != UNSIGNED_INT) {
                 printf("%s", separador);
                 printf("A coluna da chave primária deve ser do tipo UNSIGNED_INT.\n");
-                printf("Digite o nome da coluna que contem a chave primária: ");
+                printf("Digite o nome da coluna que contém a chave primária: ");
                 scanf(" %[^\n]", table->colunaPK);
                 checarNomePK(table);
             } else {
@@ -39,8 +50,13 @@ void checarTipoPK(Tabela *table) {
     }
 }
 
+/**
+ * @brief Funcção que verifica se o nome da tabela já existe.
+ * 
+ * @param nome O nome da tabela a ser verificada.
+ * @return 1 se o nome da tabela existe, 0 caso contrário.
+ */
 int checarTabelaExiste(char *nome) {
-    // função que checa se o nome da tabela já existe
     FILE *arquivo = fopen("./data/header.txt", "r");
     if (arquivo != NULL) {
         char nomeTabela[MAX_NAME_SIZE];
@@ -55,8 +71,14 @@ int checarTabelaExiste(char *nome) {
     return 0;
 }
 
+/**
+ * @brief Função que verifica se o nome da coluna já existe na tabela.
+ * 
+ * @param nome O nome da coluna a ser verificada.
+ * @param table A tabela onde será feita a verificação.
+ * @return 1 se o nome da coluna existe na tabela, 0 caso contrário.
+ */
 int checarColunaExiste(char *nome, Tabela *table) {
-    // função que checa se o nome da coluna já existe
     for (int i = 0; i < table->numColunas; i++) {
         if (strcmp(table->colunas[i].nome, nome) == 0) {
             return 1;
@@ -65,8 +87,13 @@ int checarColunaExiste(char *nome, Tabela *table) {
     return 0;
 }
 
+/**
+ * @brief Função que verifica se existe uma coluna do tipo UNSIGNED_INT na tabela.
+ * 
+ * @param table Ponteiro para a tabela a ser verificada.
+ * @return 1 se existe uma coluna do tipo UNSIGNED_INT, 0 caso contrário.
+ */
 int checarColunaUIntExiste(Tabela *table) {
-    // função que checa se existe uma coluna de tipo UNSIGNED_INT
     for (int p = 0; p < table->numColunas; p++) {
         if (table->colunas[p].tipo == UNSIGNED_INT) {
             return 1;
@@ -75,6 +102,14 @@ int checarColunaUIntExiste(Tabela *table) {
     return 0;
 }
 
+/**
+ * @brief Função que verifica se já existe algum registro na tabela com a chave primária desejada.
+ *
+ * @param nome O nome da tabela.
+ * @param valor O valor da chave primária a ser verificada.
+ * @param colunaPK O número da coluna da tabela onde a chave primária está localizada.
+ * @return Retorna 1 se a chave primária existir, 0 se não existir e -1 se o arquivo não puder ser aberto.
+ */
 int checarPKExiste(char *nome, unsigned int valor, unsigned int colunaPK) {
     char *caminho = gerarCaminhoDeArquivo(nome); // Assume que o nome do arquivo é o nome da tabela com a extensão .txt
 
