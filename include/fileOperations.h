@@ -16,5 +16,6 @@ char **separarString(char *string);
 void apagarLinhaPorConteudo(char *nomeArquivo, char *conteudoLinha);
 int contarLinhas(char *conteudo);
 int contarVirgulas(char *conteudo);
+int contarVirgulas(char *conteudo);
 
 #endif

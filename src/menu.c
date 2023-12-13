@@ -30,8 +30,10 @@ void menuInicial() {
         switch (acao) {
         case 1:
             criarTabela();
+            criarTabela();
             break;
         case 2:
+            listarTabelas();
             listarTabelas();
             break;
         case 3:
@@ -43,6 +45,7 @@ void menuInicial() {
             adicionarLinha();
             break;
         case 5:
+            // função pesquisar valor
             // função pesquisar valor
             break;
         case 6:

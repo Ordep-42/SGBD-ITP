@@ -26,10 +26,20 @@ Tabela criarTabela() {
     scanf("%u", &table.numColunas);
     for (int i = 0; i < table.numColunas; i++) {
         printf("%s", separador);
-        printf("Digite o nome da %dª coluna: ", i + 1);
-        scanf(" %[^\n]", table.colunas[i].nome);
-        printf("O tipo da coluna pode ser:\n");                       // (escrito embaixo)
-        printf("INT, UNSIGNED_INT, FLOAT, DOUBLE, CHAR ou STRING\n"); // adicionei as escolhas - bee
+        char nomeColunaTemp[MAX_NAME_SIZE];
+        while(1){ //verifica se já existe, mas n testei - bee
+            printf("Digite o nome da %dª coluna: ", i+1);
+            scanf(" %[^\n]", nomeColunaTemp);
+            if (checarColunaExiste(&nomeColunaTemp, &table)){
+                printf("Erro!, nome da coluna ja existe\nTente Novamente\n");
+            }
+            else{
+                strcpy(table.colunas[i].nome,nomeColunaTemp);
+                break;
+            }   
+        }
+        printf("O tipo da coluna pode ser:\n"); // (escrito embaixo)
+        printf("INT, UNSIGNED_INT, FLOAT, DOUBLE, CHAR ou STRING\n"); //adicionei as escolhas - bee
 
         // Pensando em implementar um switch case com numeros aqui (n aguento mais digitar UNSIGNED_INT toda vez q vou fazer um teste, ou tlvz eu crie um script pra isso :thinking:) - Peppo
         char tipo[20];
@@ -121,10 +131,52 @@ void apagarTabela() {
             remove(caminho);
             free(caminho);
             apagarTabelaDoHeader(tabelaApagar);
+            printf("Tabela %s apagada com sucesso!\n", tabelaApagar);
+            break;
+        } else  {
+            printf("Erro! Essa tabela não existe! Tente novamente\n");
+        }
+    }
+}
+
+void printarTabela() {
+    char tabelaPrintar[MAX_NAME_SIZE];
+    while (1) {
+        printf("%s", separador);
+        printf("Digite o nome da tabela que deseja visualizar:\n");
+        scanf(" %[^\n]", tabelaPrintar);
+        FILE *arquivo = fopen(gerarCaminhoDeArquivo(tabelaPrintar), "r");
+        int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(tabelaPrintar)));
+        if (checarTabelaExiste(tabelaPrintar)) {
+            printf("%s", separador);
+            // Lê e imprime apenas a primeira linha
+            char buffer[400];  // Tamanho máximo da linha
+            if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
+                char *token = strtok(buffer, ",");
+                while (token != NULL) {
+                    printf("| %12s", token);
+                    token = strtok(NULL, ",");
+                }
+                printf("%s", separador);
+            }
+            // Pular a 2 e 3
+            fgets(buffer, sizeof(buffer), arquivo);  // Lê a 2
+            fgets(buffer, sizeof(buffer), arquivo);  // Lê a 3
+            // Imprime o resto
+            for (int l = 3; l < linhas; l++) {
+                if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
+                    char *token = strtok(buffer, ",");
+                    while (token != NULL) {
+                        printf("| %12s", token);
+                        token = strtok(NULL, ",");
+                    }
+                    printf("%s", separador);
+                }
+            }
+            fclose(arquivo);
             break;
         } else {
             printf("Erro! Essa tabela não existe! Tente novamente\n");
         }
     }
-    printf("Tabela %s apagada com sucesso!\n", tabelaApagar);
 }

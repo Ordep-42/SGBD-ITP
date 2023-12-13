@@ -6,5 +6,7 @@
 
 void adicionarLinha();
 void apagarLinha();
+void adicionarLinha();
+void apagarLinha();
 
 #endif

@@ -13,6 +13,8 @@ dataOperations:
 	gcc ./src/dataOperations.c -o ./output/dataOperations.o -c $(PARAMS)
 checks:
 	gcc ./src/checks.c -o ./output/checks.o -c $(PARAMS)
+checks:
+	gcc ./src/checks.c -o ./output/checks.o -c $(PARAMS)
 tableOperations:
 	gcc ./src/tableOperations.c -o ./output/tableOperations.o -c $(PARAMS)
 rowOperations:
@@ -22,6 +24,9 @@ menu:
 
 clean:
 	rm -f ./output/*.o
+clean:
+	rm -f ./output/*.o
 
 cleanTest:
+	rm -f ./output/*.o ./tests/teste
 	rm -f ./output/*.o ./tests/teste
