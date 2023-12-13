@@ -92,6 +92,12 @@
   Exemplo de saída:
   ```
   ====================================
+  Nomes das tabelas existentes:
+  Aluno
+  Tabela 1
+  Tabela 2
+  Tabela 3
+  ====================================
   Digite o nome da tabela que deseja visualizar:
   Aluno
   ====================================
@@ -134,8 +140,15 @@
   Exemplo:
   ```
   ====================================
+  Nomes das tabelas existentes:
+  Aluno
+  Tabela 1
+  Tabela 2
+  Tabela 3
+  ====================================
   Digite o nome da tabela que deseja apagar:
   Aluno
+  ====================================
   Tabela Aluno apagada com sucesso!
   ```
   ***
