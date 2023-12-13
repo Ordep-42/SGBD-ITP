@@ -1,14 +1,24 @@
 #include "../include/dataOperations.h"
 
-void salvarNoHeader(char* nomeTabela) {
-    char* header = (char*) malloc(sizeof(char) * (MAX_NAME_SIZE + 2));
+/**
+ * @brief Salva o nome da tabela no arquivo de cabeçalho do banco de dados.
+ * 
+ * @param nomeTabela O nome da tabela a ser salvo no cabeçalho.
+ */
+void salvarNoHeader(char *nomeTabela) {
+    char *header = (char *)malloc(sizeof(char) * (MAX_NAME_SIZE + 2));
     strcpy(header, nomeTabela);
     strcat(header, "\n");
     salvarEmArquivo("./data/header.txt", header, "a");
     free(header);
 }
 
-void salvarMetadados(Tabela* table) {
+/**
+ * @brief Salva os metadados da tabela em no seu arquivo do banco de dados.
+ * 
+ * @param table Ponteiro para a tabela que os metadados serão salvos.
+ */
+void salvarMetadados(Tabela *table) {
     char *caminho = gerarCaminhoDeArquivo(table->nome);
     char separator[] = ",";
     char nameBuffer[512] = "";
@@ -17,26 +27,25 @@ void salvarMetadados(Tabela* table) {
     for (int i = 0; i < table->numColunas; i++) {
         strcat(nameBuffer, table->colunas[i].nome);
         strcat(nameBuffer, separator);
-        switch (table->colunas[i].tipo)
-        {
-            case UNSIGNED_INT:
-                strcat(typeBuffer, "UNSIGNED_INT");
-                break;
-            case INT:
-                strcat(typeBuffer, "INT");
-                break;
-            case FLOAT:
-                strcat(typeBuffer, "FLOAT");
-                break;
-            case DOUBLE:
-                strcat(typeBuffer, "DOUBLE");
-                break;
-            case CHAR:
-                strcat(typeBuffer, "CHAR");
-                break;
-            case STRING:
-                strcat(typeBuffer, "STRING");
-                break;
+        switch (table->colunas[i].tipo) {
+        case UNSIGNED_INT:
+            strcat(typeBuffer, "UNSIGNED_INT");
+            break;
+        case INT:
+            strcat(typeBuffer, "INT");
+            break;
+        case FLOAT:
+            strcat(typeBuffer, "FLOAT");
+            break;
+        case DOUBLE:
+            strcat(typeBuffer, "DOUBLE");
+            break;
+        case CHAR:
+            strcat(typeBuffer, "CHAR");
+            break;
+        case STRING:
+            strcat(typeBuffer, "STRING");
+            break;
         }
         strcat(typeBuffer, separator);
         if (strcmp(table->colunas[i].nome, table->colunaPK) == 0) {
@@ -55,6 +64,11 @@ void salvarMetadados(Tabela* table) {
     free(caminho);
 }
 
-void apagarTabelaDoHeader(char* nomeTabela) {
+/**
+ * @brief Apaga a tabela do arquivo de cabeçalho com o nome especificado.
+ * 
+ * @param nomeTabela O nome da tabela a ser apagada do cabeçalho.
+ */
+void apagarTabelaDoHeader(char *nomeTabela) {
     apagarLinhaPorConteudo("./data/header.txt", nomeTabela);
 }

@@ -1,26 +1,28 @@
-#include <stdio.h>
 #include "../include/menu.h"
 
-void menuInicial(){
-     int acao;
+/**
+ * @brief Função responsável por exibir o menu inicial do programa e realizar as ações selecionadas pelo usuário.
+ */
+void menuInicial() {
+    int acao;
     while (1) {
         printf("%s", separador);
-        printf("------------Bem Vindo(a)------------\n");
-        printf("----------------MENU----------------\n");
+        printf("------------%sBem Vindo(a)%s------------\n", HBLU, RESET);
+        printf("----------------%sMENU%s----------------\n", HCYN, RESET);
         printf("O que gostaria de fazer?\n");
-        printf("1 - Criar uma nova tabela\n");
-        printf("2 - Listar todas as tabelas\n");
-        printf("3 - Listar dados de uma tabela\n");
-        printf("4 - Adicionar uma tupla em uma tabela\n");
-        printf("5 - Pesquisar valor em uma tabela\n");
-        printf("6 - Apagar uma tupla de uma tabela\n");
-        printf("7 - Deletar uma tabela\n");
-        printf("8 - Sair\n");
-        printf("Digite o numero da acao desejada:\n");
+        printf("%s1%s - %sCriar%s uma nova tabela\n", GRNB, RESET, YEL, RESET);
+        printf("%s2%s - %sListar%s todas as tabelas\n", GRNB, RESET, CYN, RESET);
+        printf("%s3%s - %sListar%s dados de uma tabela\n", GRNB, RESET, CYN, RESET);
+        printf("%s4%s - %sAdicionar%s uma tupla em uma tabela\n", GRNB, RESET, GRN, RESET);
+        printf("%s5%s - %sPesquisar%s valor em uma tabela\n", GRNB, RESET, MAG, RESET);
+        printf("%s6%s - %sApagar%s uma tupla de uma tabela\n", GRNB, RESET, RED, RESET);
+        printf("%s7%s - %sDeletar%s uma tabela\n", GRNB, RESET, RED, RESET);
+        printf("%s8%s - %sSair%s\n", GRNB, RESET, BLK, RESET);
+        printf("Digite o %snumero%s da acao desejada: ", GRNB, RESET);
         while (1) {
             scanf("%d", &acao);
             if (acao < 1 || acao > 8) {
-                printf("Erro! O numero digitado nao corresponde a nenhuma funcao\nTente Novamente:");
+                printf("%sErro! O numero digitado nao corresponde a nenhuma função\nTente Novamente:%s ", RED, RESET);
             } else {
                 break;
             }
@@ -28,27 +30,34 @@ void menuInicial(){
         switch (acao) {
         case 1:
             criarTabela();
+            criarTabela();
             break;
         case 2:
             listarTabelas();
+            listarTabelas();
             break;
         case 3:
-            printarTabela();
+            listarTabelas();
+            //printarTabela();
             break;
         case 4:
-            //adicionarLinha();
+            listarTabelas();
+            adicionarLinha();
             break;
         case 5:
+            // função pesquisar valor
             // função pesquisar valor
             break;
         case 6:
             // função deletar tupla
             break;
         case 7:
+            listarTabelas();
             apagarTabela();
             break;
         case 8:
-            return 0;
+            printf("Desligando o programa...\n");
+            exit(EXIT_SUCCESS);
         }
     }
 }

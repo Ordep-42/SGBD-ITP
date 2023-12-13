@@ -3,8 +3,8 @@
 
 #include "fileOperations.h"
 
-void salvarNoHeader(char* tableNome);
-void salvarMetadados(Tabela* table);
-void apagarTabelaDoHeader(char* nomeTabela);
+void salvarNoHeader(char *tableNome);
+void salvarMetadados(Tabela *table);
+void apagarTabelaDoHeader(char *nomeTabela);
 
 #endif
