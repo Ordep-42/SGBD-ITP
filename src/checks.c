@@ -76,6 +76,7 @@ int checarColunaUIntExiste(Tabela *table) {
 }
 
 int checarPKExiste(char *nome, unsigned int valor, unsigned int colunaPK) {
+
     char* caminho = gerarCaminhoDeArquivo(nome); // Assume que o nome do arquivo é o nome da tabela com a extensão .txt
 
     FILE *arquivo = fopen(caminho, "r");
