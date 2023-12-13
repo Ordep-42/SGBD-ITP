@@ -1,5 +1,11 @@
 #include "../include/rowOperations.h"
 
+/**
+ * Função responsável por adicionar uma nova linha em uma tabela existente.
+ * Abre o arquivo da tabela, lê as informações das colunas e pede para o usuário
+ * digitar os valores de cada coluna.
+ * 
+ */
 void adicionarLinha() {
     char *nomeTabela = (char *)malloc(sizeof(char) * MAX_NAME_SIZE);
     printf("%s", separador);
@@ -97,6 +103,12 @@ void adicionarLinha() {
     free(nomeTabela);
 }
 
+/**
+ * @brief Função responsável por apagar uma linha de uma tabela.
+ * 
+ * A função solicita o nome da tabela em que deseja apagar uma linha
+ * e a chave primária da linha que deseja apagar.
+ */
 void apagarLinha() {
     // pedir nome da tabela que deseja apagar uma linha
     // pedir a chave primária da linha que deseja apagar
