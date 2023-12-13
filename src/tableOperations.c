@@ -73,7 +73,6 @@ void listarTabelas() {
     char *header = lerArquivo("./data/header.txt");
 
     if (header != NULL) {
-        char nomeTabela[MAX_NAME_SIZE];
         printf("%sNomes das tabelas existentes:\n", separador);
         printf("%s", header);
         free(header);

@@ -50,6 +50,29 @@ char* gerarCaminhoDeArquivo(char* nome) {
     return caminho;
 }
 
+char** separarString(char *string) {
+    char *stringCopy = strdup(string); // Create a copy of the original string
+    char **resultado = NULL;
+    char *token = strtok(stringCopy, ",");
+    int tamanho = 0;
+
+    while (token != NULL) {
+        resultado = realloc(resultado, sizeof(char*) * (tamanho + 1));
+        if (resultado == NULL) {
+            printf("Erro ao alocar memória\n");
+            exit(1);
+        }
+        resultado[tamanho] = strdup(token); // Make a copy of the token
+        tamanho++;
+        token = strtok(NULL, ",");
+    }
+
+    resultado = realloc(resultado, sizeof(char*) * (tamanho + 1));
+    resultado[tamanho] = NULL;
+    free(stringCopy); // Free the copied string
+    return resultado;
+}
+
 void apagarLinhaPorConteudo(char* nomeArquivo, char* conteudoLinha) {
     char *conteudo = lerArquivo(nomeArquivo);
     char *linhaAtual = strtok(conteudo, "\n");
@@ -77,4 +100,14 @@ int contarLinhas(char *conteudo) {
         }
     }
     return linhas;
+}
+
+int contarVirgulas(char *conteudo) {
+    int virgulas = 0;
+    for (int i = 0; i < strlen(conteudo); i++) {
+        if (conteudo[i] == ',') {
+            virgulas++;
+        }
+    }
+    return virgulas;
 }
