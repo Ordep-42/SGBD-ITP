@@ -30,7 +30,6 @@ void menuInicial() {
         switch (acao) {
         case 1:
             criarTabela();
-            criarTabela();
             break;
         case 2:
             listarTabelas();
