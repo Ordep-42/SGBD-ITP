@@ -25,5 +25,6 @@ menu:
 
 clean:
 	rm -f ./output/*.o
+
 cleanTest:
 	rm -f ./output/*.o ./tests/teste
