@@ -102,12 +102,13 @@ Tabela criarTabela() {
 void listarTabelas() {
     char *header = lerArquivo("./data/header.txt");
 
+    printf("%s", separador);
     if (header != NULL) {
-        printf("%sNomes das tabelas existentes:\n", separador);
+        printf("Nomes das tabelas existentes:\n");
         printf("%s", header);
         free(header);
     } else {
-        printf("Nao foi possivel abrir arquivo.\n");
+        printf("Não existem tabelas salvas no seu banco de dados.\n");
     }
 }
 
@@ -127,14 +128,22 @@ void apagarTabela() {
         printf("Digite o nome da tabela que deseja apagar:\n");
         scanf(" %[^\n]", tabelaApagar);
         if (checarTabelaExiste(tabelaApagar)) {
-            char *caminho = gerarCaminhoDeArquivo(tabelaApagar);
-            remove(caminho);
-            free(caminho);
-            apagarTabelaDoHeader(tabelaApagar);
-            printf("Tabela %s apagada com sucesso!\n", tabelaApagar);
-            break;
+            char confirmacao[MAX_NAME_SIZE];
+            printf("Essa é uma ação %sDESTRUTIVA%s e não pode ser revertida!\nSe quiser continuar digite o nome da tabela %s%s%s novamente: \n", RED, RESET, BRED, tabelaApagar, RESET);
+            scanf(" %[^\n]", confirmacao);
+            if (strcmp(tabelaApagar, confirmacao) == 0) {
+                char *caminho = gerarCaminhoDeArquivo(tabelaApagar);
+                remove(caminho);
+                free(caminho);
+                apagarTabelaDoHeader(tabelaApagar);
+                printf("Tabela %s apagada com sucesso!\n", tabelaApagar);
+                break;
+            } else {
+                printf("Ação cancelada!\n");
+                break;
+            }
         } else  {
-            printf("Erro! Essa tabela não existe! Tente novamente\n");
+            printf("%sErro! Essa tabela não existe! Tente novamente%s\n", RED, RESET);
         }
     }
 }
@@ -145,8 +154,6 @@ void apagarTabela() {
  * Verifica se a tabela existe e, em caso afirmativo, imprime seu conteúdo.
  * Apenas a primeira linha é impressa completamente, as demais linhas são truncadas para caberem na tela.
  * 
- * @param void
- * @return void
  */
 void printarTabela() {
     char tabelaPrintar[MAX_NAME_SIZE];
