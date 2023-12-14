@@ -165,8 +165,11 @@ void printarTabela() {
         printf("Digite o nome da tabela que deseja visualizar:\n");
         scanf(" %[^\n]", tabelaPrintar);
     }
-    FILE *arquivo = fopen(gerarCaminhoDeArquivo(tabelaPrintar), "r");
-    int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(tabelaPrintar)));
+    IntermediarioPrintarTabela(&tabelaPrintar);
+}
+void IntermediarioPrintarTabela(char* NomeTabelaP){
+    FILE *arquivo = fopen(gerarCaminhoDeArquivo(NomeTabelaP), "r");
+    int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(NomeTabelaP)));
     printf("%s", separador);
     // Lê e imprime apenas a primeira linha
     char buffer[400];  // Tamanho máximo da linha

@@ -110,6 +110,22 @@ void adicionarLinha() {
  * e a chave primária da linha que deseja apagar.
  */
 void apagarLinha() {
-    // pedir nome da tabela que deseja apagar uma linha
-    // pedir a chave primária da linha que deseja apagar
+    char tabelaApagarLinha[MAX_NAME_SIZE];
+    char chaveApagarLinha[MAX_NAME_SIZE];
+    printf("%s", separador);
+    printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
+    scanf(" %[^\n]", tabelaApagarLinha);
+    while(!checarTabelaExiste(tabelaApagarLinha)){
+        printf("Erro! Essa tabela não existe! Tente novamente\n");
+        printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
+        scanf(" %[^\n]", tabelaApagarLinha);
+    }
+    IntermediarioPrintarTabela(&tabelaApagarLinha);
+    printf("Digite a chave primária da linha que gostaria de apagar: ");
+    scanf(" %[^\n]", chaveApagarLinha);
+    //while(!checarPKExiste(tabelaApagarLinha,chaveApagarLinha,)){
+       // printf("Erro! Essa tabela não existe! Tente novamente\n");
+       // printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
+       // scanf(" %[^\n]", tabelaApagarLinha);
+    //}
 }
