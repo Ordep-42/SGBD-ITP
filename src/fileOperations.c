@@ -50,9 +50,13 @@ char *lerArquivo(char *nomeArquivo) {
         tamanhoConteudo += tamanhoLeitura;
     }
 
-    conteudo[tamanhoConteudo] = '\0';
+    if (conteudo != NULL) {
+        conteudo[tamanhoConteudo] = '\0';
+    }
+    
     free(linha);
     fclose(arquivo);
+    
     return conteudo;
 }
 
@@ -103,39 +107,6 @@ char **separarString(char *string) {
     free(stringCopy); // Free the copied string
     return resultado;
 }
-
-/**
- * @brief Separa uma string em um array de substrings com base em um delimitador.
- * 
- * Esta função recebe uma string e a divide em várias substrings usando um delimitador.
- * As substrings são armazenadas em um array de strings alocado dinamicamente.
- * 
- * @param string A string a ser separada.
- * @return char** Um array de strings contendo as substrings separadas.
- */
-char **separarString(char *string) {
-    char *stringCopy = strdup(string); // Create a copy of the original string
-    char **resultado = NULL;
-    char *token = strtok(stringCopy, ",");
-    int tamanho = 0;
-
-    while (token != NULL) {
-        resultado = realloc(resultado, sizeof(char *) * (tamanho + 1));
-        if (resultado == NULL) {
-            printf("Erro ao alocar memória\n");
-            exit(1);
-        }
-        resultado[tamanho] = strdup(token); // Make a copy of the token
-        tamanho++;
-        token = strtok(NULL, ",");
-    }
-
-    resultado = realloc(resultado, sizeof(char *) * (tamanho + 1));
-    resultado[tamanho] = NULL;
-    free(stringCopy); // Free the copied string
-    return resultado;
-}
-
 
 /**
  * @brief Apaga todas as linhas de um arquivo que correspondem a um determinado conteúdo.
