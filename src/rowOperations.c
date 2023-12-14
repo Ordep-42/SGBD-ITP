@@ -123,9 +123,56 @@ void apagarLinha() {
     IntermediarioPrintarTabela(&tabelaApagarLinha);
     printf("Digite a chave primária da linha que gostaria de apagar: ");
     scanf(" %[^\n]", chaveApagarLinha);
-    //while(!checarPKExiste(tabelaApagarLinha,chaveApagarLinha,)){
-       // printf("Erro! Essa tabela não existe! Tente novamente\n");
-       // printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
-       // scanf(" %[^\n]", tabelaApagarLinha);
-    //}
+
+    FILE *arquivo = fopen(gerarCaminhoDeArquivo(tabelaApagarLinha), "r");
+    int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(tabelaApagarLinha)));
+    int colunaPKApagar = 0;
+    printf("%s", separador);
+    char buffer[400];  // Tamanho máximo da linha
+    // Pular a 1 e 2
+    fgets(buffer, sizeof(buffer), arquivo);  // Lê a 1
+    fgets(buffer, sizeof(buffer), arquivo);  // Lê a 2
+    if (fgets(buffer, sizeof(buffer), arquivo) != NULL) { //pega a 3 (que é a de 0 e 1s)
+        char *token = strtok(buffer, ",");
+        while (token != NULL) {
+            if (strcmp(token,"1")==0){ 
+                colunaPKApagar += 1;
+                break;
+            }
+            else{
+                colunaPKApagar += 1;
+            }
+        }
+        printf("%s", separador);
+    }
+    while(!checarPKExiste(tabelaApagarLinha,chaveApagarLinha,colunaPKApagar)){
+       printf("Erro! Essa tabela não existe! Tente novamente\n");
+       printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
+       scanf(" %[^\n]", tabelaApagarLinha);
+    }
+    while (1) {
+        printf("%s", separador);
+        char confirmacao[MAX_NAME_SIZE];
+        printf("Essa é uma ação %sDESTRUTIVA%s e não pode ser revertida!\nSe quiser continuar digite o nome da tabela %s%s%s novamente: \n", RED, RESET, BRED, tabelaApagarLinha, RESET);
+        scanf(" %[^\n]", confirmacao);
+        if (strcmp(tabelaApagarLinha, confirmacao) == 0) {
+            char linhaArquivo[100];
+            char novaString[100];
+            while (fgets(linhaArquivo, sizeof(linhaArquivo), arquivo) != NULL) {
+            // Verifica se a chave está presente na linha
+                if (strstr(linhaArquivo, chaveApagarLinha) != NULL) {
+                    // Se encontrou, salva a linha
+                    strcpy(novaString, linhaArquivo);
+                    break;
+                }
+            }
+            apagarLinhaPorConteudo(&tabelaApagarLinha, &novaString);
+            printf("Linha de chave %s apagada com sucesso!\n", chaveApagarLinha);
+            fclose(arquivo);
+        break;
+    } else {
+        printf("Ação cancelada!\n");
+        break;
+    }
+    }
 }

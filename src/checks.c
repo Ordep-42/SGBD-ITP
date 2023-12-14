@@ -136,4 +136,4 @@ int checarPKExiste(char *nome, unsigned int valor, unsigned int colunaPK) {
     free(linha);
     fclose(arquivo);
     return 0; // Retorna 0 se a chave primária não existir
-}
+}  
