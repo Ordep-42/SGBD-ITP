@@ -167,6 +167,7 @@ void printarTabela() {
     }
     IntermediarioPrintarTabela(&tabelaPrintar);
 }
+
 void IntermediarioPrintarTabela(char* NomeTabelaP){
     FILE *arquivo = fopen(gerarCaminhoDeArquivo(NomeTabelaP), "r");
     int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(NomeTabelaP)));
