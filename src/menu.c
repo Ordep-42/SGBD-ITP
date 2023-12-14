@@ -16,9 +16,9 @@ void menuInicial() {
         printf("%s4%s - %sAdicionar%s uma tupla em uma tabela\n", GRNB, RESET, GRN, RESET);
         printf("%s5%s - %sPesquisar%s valor em uma tabela\n", GRNB, RESET, MAG, RESET);
         printf("%s6%s - %sApagar%s uma tupla de uma tabela\n", GRNB, RESET, RED, RESET);
-        printf("%s7%s - %sDeletar%s uma tabela\n", GRNB, RESET, RED, RESET);
+        printf("%s7%s - %sApagar%s uma tabela\n", GRNB, RESET, RED, RESET);
         printf("%s8%s - %sSair%s\n", GRNB, RESET, BLK, RESET);
-        printf("Digite o %snumero%s da acao desejada: ", GRNB, RESET);
+        printf("Digite o %snumero%s da ação desejada: ", GRNB, RESET);
         while (1) {
             scanf("%d", &acao);
             if (acao < 1 || acao > 8) {
@@ -30,10 +30,8 @@ void menuInicial() {
         switch (acao) {
         case 1:
             criarTabela();
-            criarTabela();
             break;
         case 2:
-            listarTabelas();
             listarTabelas();
             break;
         case 3:
@@ -45,11 +43,11 @@ void menuInicial() {
             adicionarLinha();
             break;
         case 5:
-            // função pesquisar valor
+            listarTabelas();
             // função pesquisar valor
             break;
         case 6:
-            // função deletar tupla
+            listarTabelas();
             break;
         case 7:
             listarTabelas();
