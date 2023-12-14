@@ -22,11 +22,9 @@ rowOperations:
 menu:
 	gcc ./src/menu.c -o ./output/menu.o -c $(PARAMS)
 
-clean:
-	rm -f ./output/*.o
+
 clean:
 	rm -f ./output/*.o
 
 cleanTest:
-	rm -f ./output/*.o ./tests/teste
 	rm -f ./output/*.o ./tests/teste

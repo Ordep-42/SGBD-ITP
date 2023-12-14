@@ -38,7 +38,7 @@ void menuInicial() {
             break;
         case 3:
             listarTabelas();
-            //printarTabela();
+            printarTabela();
             break;
         case 4:
             listarTabelas();

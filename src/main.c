@@ -1,6 +1,6 @@
 #include "../include/menu.h"
 
 int main() {
-    menuinicial();
+    menuInicial();
     return EXIT_SUCCESS;
 }
