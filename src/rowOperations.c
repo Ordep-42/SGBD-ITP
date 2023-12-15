@@ -4,7 +4,7 @@
  * Função responsável por adicionar uma nova linha em uma tabela existente.
  * Abre o arquivo da tabela, lê as informações das colunas e pede para o usuário
  * digitar os valores de cada coluna.
- * 
+ *
  */
 void adicionarLinha() {
     char *nomeTabela = (char *)malloc(sizeof(char) * MAX_NAME_SIZE);
@@ -105,7 +105,7 @@ void adicionarLinha() {
 
 /**
  * @brief Função responsável por apagar uma linha de uma tabela.
- * 
+ *
  * A função solicita o nome da tabela em que deseja apagar uma linha
  * e a chave primária da linha que deseja apagar.
  */
@@ -116,7 +116,7 @@ void apagarLinha() {
     printf("%s", separador);
     printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
     scanf(" %[^\n]", tabelaApagarLinha);
-    while(!checarTabelaExiste(tabelaApagarLinha)){
+    while (!checarTabelaExiste(tabelaApagarLinha)) {
         printf("Erro! Essa tabela não existe! Tente novamente\n");
         printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
         scanf(" %[^\n]", tabelaApagarLinha);
@@ -131,30 +131,29 @@ void apagarLinha() {
     int linhas = contarLinhas(lerArquivo(caminhoTabela));
     int colunaPKApagar = 0;
     printf("%s", separador);
-    char buffer[400];  // Tamanho máximo da linha
+    char buffer[400]; // Tamanho máximo da linha
     // Pular a 1 e 2
-    fgets(buffer, sizeof(buffer), arquivo);  // Lê a 1
-    fgets(buffer, sizeof(buffer), arquivo);  // Lê a 2
-    if (fgets(buffer, sizeof(buffer), arquivo) != NULL) { //pega a 3 (que é a de 0 e 1s)
+    fgets(buffer, sizeof(buffer), arquivo);               // Lê a 1
+    fgets(buffer, sizeof(buffer), arquivo);               // Lê a 2
+    if (fgets(buffer, sizeof(buffer), arquivo) != NULL) { // pega a 3 (que é a de 0 e 1s)
         char *token = strtok(buffer, ",");
         while (token != NULL) {
-            if (strcmp(token,"1")==0){
+            if (strcmp(token, "1") == 0) {
                 break;
-            }
-            else{
+            } else {
                 colunaPKApagar++;
             }
         }
     }
-    
-    while(!checarPKExiste(tabelaApagarLinha,chaveApagarLinha,colunaPKApagar)){
-       printf("Erro! Essa chave não existe! Tente novamente\n");
-       printf("Digite o nome da chave da qual deseja apagar uma linha:\n");
-       scanf("%u", &chaveApagarLinha);
+
+    while (!checarPKExiste(tabelaApagarLinha, chaveApagarLinha, colunaPKApagar)) {
+        printf("Erro! Essa chave não existe! Tente novamente\n");
+        printf("Digite o nome da chave da qual deseja apagar uma linha:\n");
+        scanf("%u", &chaveApagarLinha);
         printf("%s", separador);
     }
     char chaveString[10];
-    sprintf(chaveString,"%u",chaveApagarLinha);
+    sprintf(chaveString, "%u", chaveApagarLinha);
     while (1) {
         char confirmacao[MAX_NAME_SIZE];
         printf("Essa é uma ação %sDESTRUTIVA%s e não pode ser revertida!\nSe quiser continuar digite o nome da tabela %s%s%s novamente: ", RED, RESET, BRED, tabelaApagarLinha, RESET);
@@ -163,16 +162,15 @@ void apagarLinha() {
             char linhaArquivo[100];
             char novaString[100];
             while (fgets(linhaArquivo, sizeof(linhaArquivo), arquivo) != NULL) {
-            // Verifica se a chave está presente na linha
+                // Verifica se a chave está presente na linha
                 if (strstr(linhaArquivo, chaveString) != NULL) {
                     // Se encontrou, salva a linha
                     strcpy(novaString, linhaArquivo);
                     break;
                 }
             }
-            printf("%s\n", novaString);
+            char *linhaApagar = strtok(novaString, "\n");
             fclose(arquivo);
-            strcat(novaString, "\n");
             apagarLinhaPorConteudo(caminhoTabela, novaString);
             printf("Linha de chave %u apagada com sucesso!\n", chaveApagarLinha);
             break;
