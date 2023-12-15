@@ -48,6 +48,7 @@ void menuInicial() {
             break;
         case 6:
             listarTabelas();
+			apagarLinha();
             break;
         case 7:
             listarTabelas();
