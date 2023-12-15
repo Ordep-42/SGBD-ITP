@@ -174,13 +174,14 @@ void IntermediarioPrintarTabela(char* NomeTabelaP){
     printf("%s", separador);
     // Lê e imprime apenas a primeira linha
     char buffer[400];  // Tamanho máximo da linha
+    separadorDeLinha(NomeTabelaP);
     if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
         char *token = strtok(buffer, ",");
         while (token != NULL) {
             printf("| %12s", token);
             token = strtok(NULL, ",");
         }
-        printf("%s", separador);
+        separadorDeLinha(NomeTabelaP);
     }
     // Pular a 2 e 3
     fgets(buffer, sizeof(buffer), arquivo);  // Lê a 2
@@ -193,8 +194,22 @@ void IntermediarioPrintarTabela(char* NomeTabelaP){
                 printf("| %12s", token);
                 token = strtok(NULL, ",");
             }
-            printf("%s", separador);
+            separadorDeLinha(NomeTabelaP);
         }
     }
     fclose(arquivo);
+}
+
+void separadorDeLinha(char* NomeTabelaP){
+    char *caminhoTabela = gerarCaminhoDeArquivo(NomeTabelaP);
+    char *conteudoTabela = lerArquivo(caminhoTabela);
+    char *linhaAtual = strtok(conteudoTabela, "\n");
+    int numColunas = contarVirgulas(linhaAtual);
+    int vezes = (numColunas*14) + 1;
+    for (int i = 0; i<vezes; i++){
+        printf("-");
+    }
+    printf("\n");
+    free(caminhoTabela);
+    free(conteudoTabela);
 }
