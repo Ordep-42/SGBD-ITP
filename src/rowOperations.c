@@ -52,7 +52,6 @@ void adicionarLinha() {
     char *novaLinha = (char *)malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
     novaLinha[0] = '\0';
 
-    int debug = 0;
     for (unsigned int i = 0; i < numColunas; i++) {
         printf("%s", separador);
         printf("Digite o valor da coluna %s de tipo %s: ", nomes[i], tipos[i]);
@@ -125,13 +124,13 @@ void apagarLinha() {
     IntermediarioPrintarTabela(tabelaApagarLinha);
     printf("Digite a chave primária da linha que gostaria de apagar: ");
     scanf("%u", &chaveApagarLinha);
-
     char *caminhoTabela = gerarCaminhoDeArquivo(tabelaApagarLinha);
     FILE *arquivo = fopen(caminhoTabela, "r");
     int linhas = contarLinhas(lerArquivo(caminhoTabela));
     int colunaPKApagar = 0;
     printf("%s", separador);
     char buffer[400]; // Tamanho máximo da linha
+
     // Pular a 1 e 2
     fgets(buffer, sizeof(buffer), arquivo);               // Lê a 1
     fgets(buffer, sizeof(buffer), arquivo);               // Lê a 2
@@ -142,6 +141,7 @@ void apagarLinha() {
                 break;
             } else {
                 colunaPKApagar++;
+                token = strtok(NULL, ",");
             }
         }
     }
@@ -154,13 +154,13 @@ void apagarLinha() {
     }
     char chaveString[10];
     sprintf(chaveString, "%u", chaveApagarLinha);
+    char *linhaArquivo = calloc(200, sizeof(char));
+    char *novaString = calloc(200, sizeof(char));
     while (1) {
         char confirmacao[MAX_NAME_SIZE];
         printf("Essa é uma ação %sDESTRUTIVA%s e não pode ser revertida!\nSe quiser continuar digite o nome da tabela %s%s%s novamente: ", RED, RESET, BRED, tabelaApagarLinha, RESET);
         scanf(" %[^\n]", confirmacao);
         if (strcmp(tabelaApagarLinha, confirmacao) == 0) {
-            char linhaArquivo[100];
-            char novaString[100];
             while (fgets(linhaArquivo, sizeof(linhaArquivo), arquivo) != NULL) {
                 // Verifica se a chave está presente na linha
                 if (strstr(linhaArquivo, chaveString) != NULL) {
@@ -171,7 +171,7 @@ void apagarLinha() {
             }
             char *linhaApagar = strtok(novaString, "\n");
             fclose(arquivo);
-            apagarLinhaPorConteudo(caminhoTabela, novaString);
+            apagarLinhaPorConteudo(caminhoTabela, linhaApagar);
             printf("Linha de chave %u apagada com sucesso!\n", chaveApagarLinha);
             break;
         } else {
@@ -180,4 +180,6 @@ void apagarLinha() {
         }
     }
     free(caminhoTabela);
+    free(linhaArquivo);
+    free(novaString);
 }
