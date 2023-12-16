@@ -168,20 +168,20 @@ void printarTabela() {
     IntermediarioPrintarTabela(&tabelaPrintar);
 }
 
-void IntermediarioPrintarTabela(char* NomeTabelaP){
-    FILE *arquivo = fopen(gerarCaminhoDeArquivo(NomeTabelaP), "r");
-    int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(NomeTabelaP)));
+void IntermediarioPrintarTabela(char* nomeTabela){
+    FILE *arquivo = fopen(gerarCaminhoDeArquivo(nomeTabela), "r");
+    int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(nomeTabela)));
     printf("%s", separador);
     // Lê e imprime apenas a primeira linha
     char buffer[400];  // Tamanho máximo da linha
-    separadorDeLinha(NomeTabelaP);
+    separadorDeLinha(nomeTabela);
     if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
         char *token = strtok(buffer, ",");
         while (token != NULL) {
             printf("| %12s", token);
             token = strtok(NULL, ",");
         }
-        separadorDeLinha(NomeTabelaP);
+        separadorDeLinha(nomeTabela);
     }
     // Pular a 2 e 3
     fgets(buffer, sizeof(buffer), arquivo);  // Lê a 2
@@ -194,7 +194,7 @@ void IntermediarioPrintarTabela(char* NomeTabelaP){
                 printf("| %12s", token);
                 token = strtok(NULL, ",");
             }
-            separadorDeLinha(NomeTabelaP);
+            separadorDeLinha(nomeTabela);
         }
     }
     fclose(arquivo);
@@ -246,8 +246,14 @@ void pesquisar(){
     fclose(arquivo);
 }
 
-void separadorDeLinha(char* NomeTabelaP){
-    char *caminhoTabela = gerarCaminhoDeArquivo(NomeTabelaP);
+/**
+ * Função responsável por imprimir um separador de linha na saída padrão.
+ * O separador é composto por um número de traços igual ao número de colunas da tabela multiplicado por 14, mais um.
+ *
+ * @param nomeTabela O nome da tabela.
+ */
+void separadorDeLinha(char* nomeTabela){
+    char *caminhoTabela = gerarCaminhoDeArquivo(nomeTabela);
     char *conteudoTabela = lerArquivo(caminhoTabela);
     char *linhaAtual = strtok(conteudoTabela, "\n");
     int numColunas = contarVirgulas(linhaAtual);

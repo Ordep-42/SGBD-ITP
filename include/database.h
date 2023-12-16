@@ -6,22 +6,6 @@
 #define MAX_NAME_SIZE 50
 #define separador "====================================\n"
 
-typedef struct cell {
-    union {
-        unsigned int unsignedInt;
-        int int_;
-        float float_;
-        double double_;
-        char char_;
-        char *string;
-    } valor;
-} Celula;
-
-typedef struct row {
-    Celula *celulas;
-    unsigned int numCelulas;
-} Linha;
-
 typedef enum types {
     UNSIGNED_INT,
     INT,
@@ -41,8 +25,6 @@ typedef struct table {
     Coluna colunas[10];
     char colunaPK[MAX_NAME_SIZE];
     unsigned int numColunas;
-    Linha *linhas;
-    unsigned int numLinhas;
 } Tabela;
 
 #endif
