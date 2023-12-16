@@ -124,6 +124,7 @@ void apagarLinha() {
     IntermediarioPrintarTabela(tabelaApagarLinha);
     printf("Digite a %schave primária%s da linha que gostaria de apagar: ", CYN, RESET);
     scanf("%u", &chaveApagarLinha);
+
     char *caminhoTabela = gerarCaminhoDeArquivo(tabelaApagarLinha);
     FILE *arquivo = fopen(caminhoTabela, "r");
     int linhas = contarLinhas(lerArquivo(caminhoTabela));
