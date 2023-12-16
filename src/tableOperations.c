@@ -17,7 +17,7 @@ Tabela criarTabela() {
     char nomeTabela[MAX_NAME_SIZE];
     scanf(" %[^\n]", nomeTabela);
     while (checarTabelaExiste(nomeTabela)) {
-        printf("Já existe uma tabela com o nome desejado.\nEscolha outro nome e tente novamente.\n");
+        printf("%sErro, já existe uma tabela com o nome desejado.\nEscolha outro nome e tente novamente.%s\n", RED, RESET);
         printf("Digite o nome da tabela: ");
         scanf(" %[^\n]", nomeTabela);
     }
@@ -28,10 +28,10 @@ Tabela criarTabela() {
         printf("%s", separador);
         char nomeColunaTemp[MAX_NAME_SIZE];
         while (1) { // verifica se já existe, mas n testei - bee
-            printf("Digite o nome da %dª coluna: ", i + 1);
+            printf("Digite o nome da %s%dª%s coluna: ",YEL, i + 1, RESET);
             scanf(" %[^\n]", nomeColunaTemp);
             if (checarColunaExiste(&nomeColunaTemp, &table)) {
-                printf("Erro!, nome da coluna ja existe\nTente Novamente\n");
+                printf("%sErro, nome da coluna ja existe.\nTente Novamente.%s\n", RED, RESET);
             } else {
                 strcpy(table.colunas[i].nome, nomeColunaTemp);
                 break;
@@ -43,7 +43,7 @@ Tabela criarTabela() {
         // Pensando em implementar um switch case com numeros aqui (n aguento mais digitar UNSIGNED_INT toda vez q vou fazer um teste, ou tlvz eu crie um script pra isso :thinking:) - Peppo
         char tipo[20];
         while (1) { // enquanto o usuario não digitar algo válido ele vai repetir :P - bee
-            printf("Digite o tipo desejado da %dª coluna: ", i + 1);
+            printf("Digite o tipo desejado da %s%dª%s coluna: ", YEL, i + 1, RESET);
             scanf(" %[^\n]", tipo);
             if (strcmp(tipo, "INT") == 0) {
                 table.colunas[i].tipo = INT;
@@ -65,7 +65,7 @@ Tabela criarTabela() {
                 table.colunas[i].tipo = STRING;
                 break;
             } else {
-                printf("Erro!, tipo não encontrado\nTente Novamente\n");
+                printf("%sErro!, tipo não encontrado.\nTente Novamente.%s\n", RED, RESET);
             } // erro adicionado - bee
         }
     }
@@ -74,21 +74,21 @@ Tabela criarTabela() {
         if (checarColunaUIntExiste(&table)) {
             break;
         } else {
-            printf("Erro!,sua tabela deve conter pelo menos uma coluna de inteiro sem sinal\nEscreva uma coluna de tipo UNSIGNED_INT\n");
-            printf("Digite o nome da %dª coluna: ", aux + 1);
+            printf("%sErro!,sua tabela deve conter pelo menos uma coluna de inteiro sem sinal.%s\nEscreva uma coluna de tipo UNSIGNED_INT.\n", RED, RESET);
+            printf("Digite o nome da %s%dª%s coluna: ", YEL, aux + 1, RESET);
             scanf(" %[^\n]", table.colunas[aux].nome);
             table.colunas[aux].tipo = UNSIGNED_INT;
             table.numColunas++;
         }
     } while (checarColunaUIntExiste(&table) == 0);
     printf("%s", separador);
-    printf("Digite o nome da coluna que contem a chave primária: ");
+    printf("Digite o nome da coluna que contem a %schave primária%s: ", CYN, RESET);
     scanf(" %[^\n]", table.colunaPK);
     checarNomePK(&table);
     salvarNoHeader(nomeTabela);
     salvarMetadados(&table);
     printf("%s", separador);
-    printf("Tabela %s adicionada com sucesso!\n", table.nome);
+    printf("Tabela %s%s%s adicionada com sucesso!\n", YEL, table.nome, RESET);
     return table;
 }
 
@@ -142,7 +142,7 @@ void apagarTabela() {
                 break;
             }
         } else {
-            printf("%sErro! Essa tabela não existe! Tente novamente%s\n", RED, RESET);
+            printf("%sErro! Essa tabela não existe! Tente novamente.%s\n", RED, RESET);
         }
     }
 }
@@ -157,47 +157,97 @@ void apagarTabela() {
 void printarTabela() {
     char tabelaPrintar[MAX_NAME_SIZE];
     printf("%s", separador);
-    printf("Digite o nome da tabela que deseja visualizar:\n");
+    printf("Digite o nome da tabela que deseja visualizar: ");
     scanf(" %[^\n]", tabelaPrintar);
     while (!checarTabelaExiste(tabelaPrintar)) {
-        printf("Erro! Essa tabela não existe! Tente novamente\n");
-        printf("Digite o nome da tabela que deseja visualizar:\n");
+        printf("%sErro! Essa tabela não existe! Tente novamente: %s", RED, RESET);
+        printf("Digite o nome da tabela que deseja visualizar: ");
         scanf(" %[^\n]", tabelaPrintar);
     }
-    IntermediarioPrintarTabela(&tabelaPrintar);
+    IntermediarioPrintarTabela(tabelaPrintar);
 }
 
+/**
+ * @brief Função responsável por imprimir os dados de uma tabela a partir do nome.
+ * 
+ * @param nomeTabela O nome da tabela.
+ */
 void IntermediarioPrintarTabela(char *nomeTabela) {
-    FILE *arquivo = fopen(gerarCaminhoDeArquivo(nomeTabela), "r");
-    int linhas = contarLinhas(lerArquivo(gerarCaminhoDeArquivo(nomeTabela)));
+    char *caminhoTabela = gerarCaminhoDeArquivo(nomeTabela);
+    FILE *arquivo = fopen(caminhoTabela, "r");
+    int linhas = contarLinhas(lerArquivo(caminhoTabela));
     printf("%s", separador);
-    // Lê e imprime apenas a primeira linha
-    char buffer[400]; // Tamanho máximo da linha
-    separadorDeLinha(nomeTabela);
-    if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
-        char *token = strtok(buffer, ",");
-        while (token != NULL) {
-            printf("| %12s", token);
-            token = strtok(NULL, ",");
-        }
-        separadorDeLinha(nomeTabela);
-    }
-    // Pular a 2 e 3
-    fgets(buffer, sizeof(buffer), arquivo); // Lê a 2
-    fgets(buffer, sizeof(buffer), arquivo); // Lê a 3
-    // Imprime o resto
-    for (int l = 3; l < linhas; l++) {
-        if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
+    if (linhas > 3) {
+        char buffer[400]; // Tamanho máximo da linha
+
+        fgets(buffer, sizeof(buffer), arquivo); // Lê a 1
+        fgets(buffer, sizeof(buffer), arquivo); // Lê a 2
+
+        // Pega a coluna da chave primária para formatar a saída
+        int colunaPK = 0;
+        if (fgets(buffer, sizeof(buffer), arquivo) != NULL) { // pega a 3 (que é a de 0 e 1s)
             char *token = strtok(buffer, ",");
             while (token != NULL) {
-                printf("| %12s", token);
+                if (strcmp(token, "1") == 0) {
+                    break;
+                } else {
+                    colunaPK++;
+                }
+            }
+        }
+
+        rewind(arquivo); // Volta para o início do arquivo pra imprimir os dados
+
+        // Lê e imprime apenas a primeira linha
+        if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
+            char *token = strtok(buffer, ",");
+            int contador = 0;
+            while (token != NULL) {
+                if (contador == colunaPK) {
+                    printf("| %s%12s%s", CYN, token, RESET);
+                } else {
+                    printf("| %12s", token);
+                }
                 token = strtok(NULL, ",");
+                contador++;
             }
             separadorDeLinha(nomeTabela);
         }
+
+        // Pular a 2 e a 3
+        fgets(buffer, sizeof(buffer), arquivo); // Lê a 2
+        fgets(buffer, sizeof(buffer), arquivo); // Lê a 3 (que é a de 0 e 1s)
+
+        // Imprime o resto
+        for (int l = 3; l < linhas; l++) {
+            if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
+                int contador = 0;
+                char *token = strtok(buffer, ",");
+                while (token != NULL) {
+                    if (contador == colunaPK) {
+                        printf("| %s%12s%s", UCYN, token, RESET);
+                    } else {
+                        printf("| %12s", token);
+                    }
+                    token = strtok(NULL, ",");
+                    contador++;
+                }
+                printf("%s", separador);
+            }
+        }
+    } else {
+        printf("A tabela %s%s %snão contem dados%s para serem exibidos.\n", YEL, nomeTabela, RED, RESET);
     }
     fclose(arquivo);
 }
+
+/**
+ * @Brief Função que pede ao usuário a tabela e valor a ser pesquisado.
+ *
+ *
+ *
+*/
+
 void pesquisar() {
     char tabelaPesquisar[MAX_NAME_SIZE];
     printf("%s", separador);
@@ -263,4 +313,5 @@ void separadorDeLinha(char *nomeTabela) {
     printf("\n");
     free(caminhoTabela);
     free(conteudoTabela);
+    free(caminhoTabela);
 }
