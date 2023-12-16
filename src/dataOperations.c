@@ -2,7 +2,7 @@
 
 /**
  * @brief Salva o nome da tabela no arquivo de cabeçalho do banco de dados.
- * 
+ *
  * @param nomeTabela O nome da tabela a ser salvo no cabeçalho.
  */
 void salvarNoHeader(char *nomeTabela) {
@@ -15,7 +15,7 @@ void salvarNoHeader(char *nomeTabela) {
 
 /**
  * @brief Salva os metadados da tabela em no seu arquivo do banco de dados.
- * 
+ *
  * @param table Ponteiro para a tabela que os metadados serão salvos.
  */
 void salvarMetadados(Tabela *table) {
@@ -66,7 +66,7 @@ void salvarMetadados(Tabela *table) {
 
 /**
  * @brief Apaga a tabela do arquivo de cabeçalho com o nome especificado.
- * 
+ *
  * @param nomeTabela O nome da tabela a ser apagada do cabeçalho.
  */
 void apagarTabelaDoHeader(char *nomeTabela) {
