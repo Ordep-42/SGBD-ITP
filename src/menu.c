@@ -44,7 +44,7 @@ void menuInicial() {
             break;
         case 5:
             listarTabelas();
-            // função pesquisar valor
+            pesquisar();
             break;
         case 6:
             listarTabelas();

@@ -142,7 +142,7 @@ void apagarTabela() {
                 break;
             }
         } else {
-            printf("%sErro! Essa tabela não existe! Tente novamente: %s", RED, RESET);
+            printf("%sErro! Essa tabela não existe! Tente novamente.%s\n", RED, RESET);
         }
     }
 }
@@ -211,7 +211,7 @@ void IntermediarioPrintarTabela(char *nomeTabela) {
                 token = strtok(NULL, ",");
                 contador++;
             }
-            printf("%s", separador);
+            separadorDeLinha(nomeTabela);
         }
 
         // Pular a 2 e a 3
@@ -239,5 +239,79 @@ void IntermediarioPrintarTabela(char *nomeTabela) {
         printf("A tabela %s%s %snão contem dados%s para serem exibidos.\n", YEL, nomeTabela, RED, RESET);
     }
     fclose(arquivo);
+}
+
+/**
+ * @Brief Função que pede ao usuário a tabela e valor a ser pesquisado.
+ *
+ *
+ *
+*/
+
+void pesquisar() {
+    char tabelaPesquisar[MAX_NAME_SIZE];
+    printf("%s", separador);
+    printf("Digite o nome da tabela onde deseja pesquisar:\n");
+    scanf(" %[^\n]", tabelaPesquisar);
+    while (!checarTabelaExiste(tabelaPesquisar)) {
+        printf("Erro! Essa tabela não existe! Tente novamente\n");
+        printf("Digite o nome da tabela onde deseja pesquisar:\n");
+        scanf(" %[^\n]", tabelaPesquisar);
+    }
+
+    char valorPesquisar[MAX_NAME_SIZE];
+    printf("%s", separador);
+    printf("Digite o valor que deseja buscar:\n");
+    scanf(" %[^\n]", valorPesquisar);
+
+    char *caminhoTabela = gerarCaminhoDeArquivo(tabelaPesquisar);
+    FILE *arquivo = fopen(caminhoTabela, "r");
+    int linhas = contarLinhas(lerArquivo(caminhoTabela));
+    int colunaPKApagar = 0;
+    int confirmar = 0;
+    printf("%s", separador);
+    char buffer[400]; // Tamanho máximo da linha
+    // Pular a 1, 2 e 3
+    fgets(buffer, sizeof(buffer), arquivo); // Lê a 1
+    fgets(buffer, sizeof(buffer), arquivo); // Lê a 2
+    fgets(buffer, sizeof(buffer), arquivo); // Lê a 3
+
+    for (int l = 0; l < linhas; l++) {
+        if (fgets(buffer, sizeof(buffer), arquivo) != NULL) {
+            char *token = strtok(buffer, ",");
+            while (token != NULL) {
+
+                if (strcmp(token, valorPesquisar) == 0) {
+                    printf("O valor %s foi encontrado\n", valorPesquisar);
+                    confirmar = 1;
+                }
+                token = strtok(NULL, ",");
+            }
+        }
+    }
+    if (confirmar == 0) {
+        printf("O valor %s não foi encontrado\n", valorPesquisar);
+    }
+    fclose(arquivo);
+}
+
+/**
+ * Função responsável por imprimir um separador de linha na saída padrão.
+ * O separador é composto por um número de traços igual ao número de colunas da tabela multiplicado por 14, mais um.
+ *
+ * @param nomeTabela O nome da tabela.
+ */
+void separadorDeLinha(char *nomeTabela) {
+    char *caminhoTabela = gerarCaminhoDeArquivo(nomeTabela);
+    char *conteudoTabela = lerArquivo(caminhoTabela);
+    char *linhaAtual = strtok(conteudoTabela, "\n");
+    int numColunas = contarVirgulas(linhaAtual);
+    int vezes = (numColunas * 14) + 1;
+    for (int i = 0; i < vezes; i++) {
+        printf("-");
+    }
+    printf("\n");
+    free(caminhoTabela);
+    free(conteudoTabela);
     free(caminhoTabela);
 }
