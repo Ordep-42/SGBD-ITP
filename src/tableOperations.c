@@ -176,7 +176,7 @@ void IntermediarioPrintarTabela(char *nomeTabela) {
     char *caminhoTabela = gerarCaminhoDeArquivo(nomeTabela);
     FILE *arquivo = fopen(caminhoTabela, "r");
     int linhas = contarLinhas(lerArquivo(caminhoTabela));
-    printf("%s", separador);
+    separadorDeLinha(nomeTabela);
     if (linhas > 3) {
         char buffer[400]; // Tamanho máximo da linha
 
@@ -232,7 +232,7 @@ void IntermediarioPrintarTabela(char *nomeTabela) {
                     token = strtok(NULL, ",");
                     contador++;
                 }
-                printf("%s", separador);
+                separadorDeLinha(nomeTabela);
             }
         }
     } else {
@@ -313,5 +313,4 @@ void separadorDeLinha(char *nomeTabela) {
     printf("\n");
     free(caminhoTabela);
     free(conteudoTabela);
-    free(caminhoTabela);
 }

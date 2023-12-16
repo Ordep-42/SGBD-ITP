@@ -98,17 +98,16 @@
   Tabela 2
   Tabela 3
   ====================================
-  Digite o nome da tabela que deseja visualizar:
-  Aluno
-  ====================================
+  Digite o nome da tabela que deseja visualizar: Aluno
+  -------------------------------------------
   |    Matrícula|         Nome|         Nota|
-  ====================================
+  -------------------------------------------
   |            1|       Fulano|     2.356500|
-  ====================================
+  -------------------------------------------
   |            2|      Cicrano|     2.000000|
-  ====================================
+  -------------------------------------------
   |            3|     Beltrano|     5.000000|
-  ====================================
+  -------------------------------------------
   ```
   ***
   ### 4. Adicionar uma linha a uma tabela
@@ -129,10 +128,53 @@
   ```
   ***
   ### 5. Pesquisar um valor em uma tabela
-
+  O programa pedirá a tabela a ser pesquisada e o valor a ser pesquisado e imprime na tela se o valor foi encontrado ou não naquela tabela.
+  
+  Exemplo:
+  ```
+  ====================================
+  Nomes das tabelas existentes:
+  Aluno
+  Tabela 1
+  Tabela 2
+  Tabela 3
+  ====================================
+  Digite o nome da tabela onde deseja pesquisar: Aluno
+  Digite o valor que deseja pesquisar: 5.3
+  ====================================
+  O valor 5.3 foi encontrado
+  ```
   ***
   ### 6. Apagar uma linha de uma tabela
-  O programa pedirá o valor da chave primária da linha a ser apagada e verificará se existe alguma linha com essa chave primária, se existir, irá apaga-la. **CUIDADO essa ação é destrutiva e não pode ser revertida!**
+  O programa pedirá a tabela que a linha será apagada e o valor da chave primária da linha a ser apagada e verificará se existe alguma linha com essa chave primária, se existir, irá apaga-la. **CUIDADO essa ação é destrutiva e não pode ser revertida!**
+
+  Exemplo:
+  ```
+  ====================================
+  Nomes das tabelas existentes:
+  Aluno
+  Tabela 1
+  Tabela 2
+  Tabela 3
+  ====================================
+  Digite o nome da tabela que deseja visualizar: Aluno
+  -------------------------------------------
+  |    Matrícula|         Nome|         Nota|
+  -------------------------------------------
+  |            1|       Fulano|     2.356500|
+  -------------------------------------------
+  |            2|      Cicrano|     2.000000|
+  -------------------------------------------
+  |            3|     Beltrano|     5.000000|
+  -------------------------------------------
+  |            4|    Fulaninho|     5.300000|
+  -------------------------------------------
+  Digite a chave primária da linha que gostaria de apagar: 4
+  ====================================
+  Essa é uma ação DESTRUTIVA e não pode ser revertida!
+  Se quiser continuar digite o nome da tabela Aluno novamente: Aluno
+  Linha de chave primária 4 apagada com sucesso!
+  ```
   ***
   ### 7. Apagar uma tabela
   O programa pedirá o nome da tabela a ser apagada e verificará se existe alguma tabela com esse nome, se existir, irá apaga-la. **CUIDADO essa ação é destrutiva e não pode ser revertida!**
@@ -148,7 +190,8 @@
   ====================================
   Digite o nome da tabela que deseja apagar:
   Aluno
-  ====================================
+  Essa é uma ação DESTRUTIVA e não pode ser revertida!
+  Se quiser continuar digite o nome da tabela Aluno novamente: Aluno
   Tabela Aluno apagada com sucesso!
   ```
   ***

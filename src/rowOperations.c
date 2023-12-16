@@ -113,7 +113,7 @@ void apagarLinha() {
     unsigned int chaveApagarLinha;
 
     printf("%s", separador);
-    printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
+    printf("Digite o nome da tabela da qual deseja apagar uma linha: \n");
     scanf(" %[^\n]", tabelaApagarLinha);
     while (!checarTabelaExiste(tabelaApagarLinha)) {
         printf("%sErro! Essa tabela não existe! Tente novamente.%s\n", RED, RESET);
