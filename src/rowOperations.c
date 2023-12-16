@@ -12,7 +12,7 @@ void adicionarLinha() {
     printf("Digite o nome da tabela que deseja adicionar uma linha: ");
     scanf(" %[^\n]", nomeTabela);
     while (!checarTabelaExiste(nomeTabela)) {
-        printf("Tabela não existe. Digite novamente: ");
+        printf("%sErro, essa tabela não existe. Digite novamente:%s ", RED, RESET);
         scanf(" %[^\n]", nomeTabela);
     }
     char *caminhoTabela = gerarCaminhoDeArquivo(nomeTabela);
@@ -52,7 +52,6 @@ void adicionarLinha() {
     char *novaLinha = (char *)malloc(sizeof(char) * MAX_NAME_SIZE * numColunas);
     novaLinha[0] = '\0';
 
-    int debug = 0;
     for (unsigned int i = 0; i < numColunas; i++) {
         printf("%s", separador);
         printf("Digite o valor da coluna %s de tipo %s: ", nomes[i], tipos[i]);
@@ -62,7 +61,7 @@ void adicionarLinha() {
             if (strcmp(pks[i], "1") == 0) {
                 while (1) {
                     if (checarPKExiste(nomeTabela, valor, i)) {
-                        printf("Erro! Essa chave primária já existe! Tente novamente\n");
+                        printf("%sErro! Essa chave primária já existe! Tente novamente: %s", RED, RESET);
                         scanf("%u", &valor);
                     } else {
                         break;
@@ -117,13 +116,13 @@ void apagarLinha() {
     printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
     scanf(" %[^\n]", tabelaApagarLinha);
     while (!checarTabelaExiste(tabelaApagarLinha)) {
-        printf("Erro! Essa tabela não existe! Tente novamente\n");
-        printf("Digite o nome da tabela da qual deseja apagar uma linha:\n");
+        printf("%sErro! Essa tabela não existe! Tente novamente.%s\n", RED, RESET);
+        printf("Digite o nome da tabela da qual deseja apagar uma linha: ");
         scanf(" %[^\n]", tabelaApagarLinha);
     }
 
     IntermediarioPrintarTabela(tabelaApagarLinha);
-    printf("Digite a chave primária da linha que gostaria de apagar: ");
+    printf("Digite a %schave primária%s da linha que gostaria de apagar: ", CYN, RESET);
     scanf("%u", &chaveApagarLinha);
 
     char *caminhoTabela = gerarCaminhoDeArquivo(tabelaApagarLinha);
@@ -132,6 +131,7 @@ void apagarLinha() {
     int colunaPKApagar = 0;
     printf("%s", separador);
     char buffer[400]; // Tamanho máximo da linha
+
     // Pular a 1 e 2
     fgets(buffer, sizeof(buffer), arquivo);               // Lê a 1
     fgets(buffer, sizeof(buffer), arquivo);               // Lê a 2
@@ -142,13 +142,14 @@ void apagarLinha() {
                 break;
             } else {
                 colunaPKApagar++;
+                token = strtok(NULL, ",");
             }
         }
     }
 
     while (!checarPKExiste(tabelaApagarLinha, chaveApagarLinha, colunaPKApagar)) {
-        printf("Erro! Essa chave não existe! Tente novamente\n");
-        printf("Digite o nome da chave da qual deseja apagar uma linha:\n");
+        printf("%sErro! Essa chave não existe! Tente novamente.%s\n", RED, RESET);
+        printf("Digite o nome da chave da qual deseja apagar uma linha: ");
         scanf("%u", &chaveApagarLinha);
         printf("%s", separador);
     }
@@ -159,8 +160,8 @@ void apagarLinha() {
         printf("Essa é uma ação %sDESTRUTIVA%s e não pode ser revertida!\nSe quiser continuar digite o nome da tabela %s%s%s novamente: ", RED, RESET, BRED, tabelaApagarLinha, RESET);
         scanf(" %[^\n]", confirmacao);
         if (strcmp(tabelaApagarLinha, confirmacao) == 0) {
-            char linhaArquivo[100];
-            char novaString[100];
+            char linhaArquivo[200];
+            char novaString[200];
             while (fgets(linhaArquivo, sizeof(linhaArquivo), arquivo) != NULL) {
                 // Verifica se a chave está presente na linha
                 if (strstr(linhaArquivo, chaveString) != NULL) {
@@ -171,8 +172,8 @@ void apagarLinha() {
             }
             char *linhaApagar = strtok(novaString, "\n");
             fclose(arquivo);
-            apagarLinhaPorConteudo(caminhoTabela, novaString);
-            printf("Linha de chave %u apagada com sucesso!\n", chaveApagarLinha);
+            apagarLinhaPorConteudo(caminhoTabela, linhaApagar);
+            printf("Linha de %schave primária %u%s apagada com sucesso!\n", CYN, chaveApagarLinha, RESET);
             break;
         } else {
             printf("Ação cancelada!\n");
