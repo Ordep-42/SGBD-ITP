@@ -9,5 +9,8 @@ Tabela criarTabela();
 void listarTabelas();
 void apagarTabela();
 void printarTabela();
+void pesquisar();
+void IntermediarioPrintarTabela(char *nomeTabela);
+void separadorDeLinha(char *nomeTabela);
 
 #endif
